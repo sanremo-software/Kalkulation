@@ -1,198 +1,853 @@
 
 <!DOCTYPE html>
-<html lang="de">
+<html lang="pt">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sanremo Kalkulation – Einkauf, Verkauf & Gewinn</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sanremo Gelato Lab</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#eef2f6;color:#111;padding:14px}
-.app{max-width:1250px;margin:0 auto}
-header{background:#111827;color:#fff;border-radius:18px;padding:18px;margin-bottom:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
-h1{font-size:1.45rem}.sub{color:#d1d5db;font-size:.9rem;margin-top:4px}
-.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-label{font-weight:700;font-size:.9rem;margin-top:10px;display:block}input,select,textarea,button{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #cfd6df;font-size:1rem;margin-top:5px;background:#fff}button{border:0;font-weight:800;cursor:pointer}.btn{background:#111827;color:#fff}.blue{background:#1d4ed8;color:#fff}.green{background:#15803d;color:#fff}.red{background:#dc2626;color:#fff}.gray{background:#e5e7eb;color:#111}.orange{background:#f59e0b;color:#111}.small{width:auto;padding:7px 10px;font-size:.85rem;margin:2px}
-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.88rem}th,td{border:1px solid #d8dee8;padding:7px;text-align:left;vertical-align:top}th{background:#f3f4f6}.right{text-align:right}.center{text-align:center}
-.bad{color:#b91c1c;font-weight:800}.ok{color:#15803d;font-weight:800}.warn{color:#b45309;font-weight:800}.muted{color:#6b7280;font-size:.88rem}.pill{display:inline-block;border-radius:999px;padding:3px 9px;font-weight:800;font-size:.8rem}.pill7{background:#dcfce7;color:#166534}.pill19{background:#fee2e2;color:#991b1b}.pillWarn{background:#fef3c7;color:#92400e}.pillBad{background:#fee2e2;color:#991b1b}.pillOk{background:#dcfce7;color:#166534}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{width:auto;padding:10px 14px;background:#e5e7eb;color:#111;border-radius:999px}.tab.active{background:#111827;color:#fff}.hidden{display:none}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.sumBox{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:12px}.sumBox b{font-size:1.2rem}.dangerBox{background:#fef2f2;border:1px solid #fecaca;color:#7f1d1d;border-radius:12px;padding:10px;margin-top:10px}.infoBox{background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:12px;padding:10px;margin-top:10px}.successBox{background:#ecfdf5;border:1px solid #bbf7d0;color:#14532d;border-radius:12px;padding:10px;margin-top:10px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.tableWrap{overflow-x:auto}
-@media(max-width:850px){.grid,.grid3,.grid4,.summary{grid-template-columns:1fr}header{display:block}.toolbar{justify-content:flex-start}table{font-size:.78rem}th,td{padding:5px}}
-@media print{body{background:#fff}.tabs,.toolbar,button,input,select,textarea,label{display:none!important}.card{box-shadow:none;border:0}.hidden{display:block!important}}
+:root {
+  --green:#126b58;
+  --dark:#143e38;
+  --light:#e4f0ec;
+  --bg:#f3f6f5;
+  --red:#a63232;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:#223137;
+  font-family:Arial,sans-serif;
+}
+header {
+  background:var(--dark);
+  color:white;
+  padding:25px 15px;
+  text-align:center;
+}
+header h1 {margin:0;font-size:28px}
+header p {color:#c4ded7}
+main {max-width:1050px;margin:auto;padding:12px}
+nav {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin:15px 0;
+}
+button {
+  border:0;
+  padding:12px;
+  border-radius:9px;
+  background:var(--light);
+  color:var(--green);
+  font-weight:bold;
+  cursor:pointer;
+}
+button.primary,button.active {
+  background:var(--green);
+  color:white;
+}
+button.danger {background:#f8e4e4;color:var(--red)}
+.panel {
+  background:white;
+  padding:20px;
+  border-radius:14px;
+  margin-bottom:15px;
+  box-shadow:0 2px 9px #0000000a;
+}
+.hidden {display:none}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+label {display:block;margin:12px 0 5px;font-weight:bold}
+input,select {
+  width:100%;
+  padding:11px;
+  border:1px solid #ccd7d3;
+  border-radius:8px;
+  font-size:16px;
+  background:white;
+}
+input[type=checkbox]{width:auto}
+.actions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:15px 0;
+}
+table {width:100%;border-collapse:collapse;font-size:14px}
+td,th {
+  padding:9px;
+  border-bottom:1px solid #dce5e2;
+  text-align:left;
+}
+.scroll {overflow-x:auto}
+.notice {
+  background:#edf5f2;
+  padding:13px;
+  border-radius:9px;
+  margin:12px 0;
+  line-height:1.5;
+}
+.warning {background:#fff0d8}
+.error {background:#ffe7e7}
+.good {background:#e1f4e8}
+.cards {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+  margin:12px 0;
+}
+.card {background:#eef3f1;padding:14px;border-radius:9px}
+.card small {display:block;color:#5d746e}
+.card strong {font-size:22px}
+.product {
+  padding:12px;
+  border:1px solid #dfe8e4;
+  border-radius:9px;
+  margin:8px 0;
+}
+.product button{margin-top:7px}
+.recipe-line {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 110px 40px;
+  gap:6px;
+  margin:8px 0;
+}
+.recipe-line select,.recipe-line input {font-size:14px}
+footer {text-align:center;padding:20px;color:#687a75}
+@media(max-width:500px){
+  .panel{padding:13px}
+  .grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .recipe-line{grid-template-columns:minmax(0,1fr) 85px 36px}
+  td,th{padding:6px}
+}
+@media print {
+  nav,.actions,button,header .warning{display:none!important}
+  .panel {box-shadow:none;border:1px solid #ddd}
+}
 </style>
 </head>
 <body>
-<div class="app">
+
 <header>
-  <div>
-    <h1>Sanremo Kalkulation – Einkauf, Verkauf & Gewinn</h1>
-    <div class="sub">Privates Kalkulations-Tool · Einkaufspreise · Rezeptkosten · Verkaufspreise · Gewinn · Steuerberater-Export</div>
-  </div>
-  <div class="toolbar">
-    <button class="gray small" onclick="backupJSON()">Backup JSON</button>
-    <label class="gray small" style="cursor:pointer">Import JSON<input id="importFile" type="file" accept="application/json" style="display:none"></label>
-    <button class="red small" onclick="resetAll()">Alles löschen</button>
-  </div>
+<h1>🍨 Sanremo Gelato Lab</h1>
+<p>Formulação • Receitas • Produtos • Custos • Rentabilidade</p>
 </header>
 
-<div class="tabs">
-  <button class="tab active" onclick="showTab('dashboard',this)">Übersicht</button>
-  <button class="tab" onclick="showTab('items',this)">Einkauf / Zutaten</button>
-  <button class="tab" onclick="showTab('products',this)">Produkte / Verkauf</button>
-  <button class="tab" onclick="showTab('sales',this)">Verkäufe</button>
-  <button class="tab" onclick="showTab('report',this)">Monatsbericht</button>
+<main>
+<div class="notice warning">
+<b>Aviso:</b> os cálculos técnicos são estimativas.
+Uma receita não é certificada como perfeita ou segura
+apenas por atingir objetivos matemáticos.
+Os dados são guardados neste navegador.
+Não publiques o teu backup privado no GitHub.
 </div>
 
-<section id="dashboard" class="tabPage">
-  <div class="card">
-    <h2>Übersicht aktueller Monat</h2>
-    <div class="summary" id="dashboardSummary"></div>
-    <div class="infoBox"><b>Wichtig:</b> Dieses Tool ist für deine interne Kalkulation. Für Finanzamt/Steuerberater brauchst du weiterhin echte Rechnungen, Kassenberichte und saubere Buchhaltung.</div>
-  </div>
-  <div class="card">
-    <h3>Produkte mit Risiko</h3>
-    <div id="riskList" class="tableWrap"></div>
-  </div>
-</section>
+<nav>
+<button class="active" onclick="tab('create',this)">1. Criar receita</button>
+<button onclick="tab('analyze',this)">2. Analisar / corrigir</button>
+<button onclick="tab('products',this)">3. Produtos</button>
+<button onclick="tab('saved',this)">4. Receitas privadas</button>
+<button onclick="tab('costs',this)">5. Custos</button>
+<button onclick="tab('profit',this)">6. Rentabilidade</button>
+</nav>
 
-<section id="items" class="tabPage hidden">
-  <div class="card">
-    <h2>Einkauf / Zutaten erfassen</h2>
-    <div class="grid4">
-      <div><label>Name</label><input id="itemName" placeholder="z.B. H-Milch 3,5%"></div>
-      <div><label>Kategorie</label><input id="itemCategory" placeholder="Milch, Verpackung, Topping..."></div>
-      <div><label>Einkaufspreis netto/brutto?</label><select id="itemPriceType"><option value="gross">Brutto</option><option value="net">Netto</option></select></div>
-      <div><label>MwSt Einkauf</label><select id="itemVat"><option value="7">7%</option><option value="19">19%</option><option value="0">0%</option></select></div>
-    </div>
-    <div class="grid4">
-      <div><label>Preis</label><input id="itemPrice" type="number" step="0.01" placeholder="z.B. 12.40"></div>
-      <div><label>Menge</label><input id="itemQty" type="number" step="0.001" placeholder="z.B. 10"></div>
-      <div><label>Einheit</label><select id="itemUnit"><option value="kg">kg</option><option value="g">g</option><option value="l">Liter</option><option value="ml">ml</option><option value="stk">Stück</option></select></div>
-      <div><label>Lieferant</label><input id="itemSupplier" placeholder="optional"></div>
-    </div>
-    <button class="blue" style="margin-top:12px" onclick="addItem()">Zutat / Einkauf speichern</button>
-    <div class="muted" style="margin-top:8px">Beispiel: 10 Liter Milch für 12,40 € brutto → System rechnet Preis pro Liter und netto automatisch.</div>
-  </div>
-  <div class="card">
-    <h3>Gespeicherte Einkaufspreise</h3>
-    <div id="itemsTable" class="tableWrap"></div>
-  </div>
-</section>
-
-<section id="products" class="tabPage hidden">
-  <div class="card">
-    <h2>Produkt / Verkaufspreis kalkulieren</h2>
-    <div class="grid3">
-      <div><label>Produktname</label><input id="prodName" placeholder="z.B. Spaghetti Eis 170g"></div>
-      <div><label>Verkaufspreis brutto</label><input id="prodSellGross" type="number" step="0.01" placeholder="z.B. 3.59"></div>
-      <div><label>MwSt Verkauf</label><select id="prodVat"><option value="7">7%</option><option value="19">19%</option></select></div>
-    </div>
-    <div class="grid3">
-      <div><label>Verpackungskosten extra netto</label><input id="prodPackaging" type="number" step="0.01" value="0"></div>
-      <div><label>Personal/Energie pauschal netto</label><input id="prodOverhead" type="number" step="0.01" value="0"></div>
-      <div><label>Mindestgewinn netto pro Stück</label><input id="prodMinProfit" type="number" step="0.01" value="0.50"></div>
-    </div>
-    <div class="card" style="background:#f8fafc;margin-top:14px">
-      <h3>Rezept / Bestandteile</h3>
-      <div class="grid3">
-        <div><label>Zutat auswählen</label><select id="recipeItem"></select></div>
-        <div><label>Menge im Produkt</label><input id="recipeQty" type="number" step="0.001" placeholder="z.B. 170"></div>
-        <div><label>Einheit</label><select id="recipeUnit"><option value="g">g</option><option value="kg">kg</option><option value="ml">ml</option><option value="l">Liter</option><option value="stk">Stück</option></select></div>
-      </div>
-      <button class="gray" style="margin-top:10px" onclick="addRecipeLine()">Zutat zum Produkt hinzufügen</button>
-      <div id="recipeLines" class="tableWrap"></div>
-    </div>
-    <button class="green" style="margin-top:12px" onclick="saveProduct()">Produkt speichern / aktualisieren</button>
-    <div id="productCalcBox"></div>
-  </div>
-  <div class="card">
-    <h3>Gespeicherte Produkte</h3>
-    <div id="productsTable" class="tableWrap"></div>
-  </div>
-</section>
-
-<section id="sales" class="tabPage hidden">
-  <div class="card">
-    <h2>Verkauf erfassen</h2>
-    <div class="grid4">
-      <div><label>Datum</label><input id="saleDate" type="date"></div>
-      <div><label>Produkt</label><select id="saleProduct"></select></div>
-      <div><label>Menge verkauft</label><input id="saleQty" type="number" step="1" value="1"></div>
-      <div><label>Preis brutto pro Stück</label><input id="salePrice" type="number" step="0.01"></div>
-    </div>
-    <button class="blue" style="margin-top:12px" onclick="addSale()">Verkauf speichern</button>
-  </div>
-  <div class="card">
-    <h3>Verkäufe</h3>
-    <div id="salesTable" class="tableWrap"></div>
-  </div>
-</section>
-
-<section id="report" class="tabPage hidden">
-  <div class="card">
-    <h2>Monatsbericht</h2>
-    <div class="grid3">
-      <div><label>Monat</label><input id="reportMonth" type="month"></div>
-      <button class="blue" onclick="renderReport()">Bericht aktualisieren</button>
-      <button class="gray" onclick="window.print()">Drucken / PDF</button>
-    </div>
-    <div id="reportBox" class="tableWrap"></div>
-  </div>
-</section>
+<section id="create" class="panel">
+<h2>Criar gelado do zero</h2>
+<div class="grid">
+<div><label>Fruta ou fruto seco</label><select id="flavor"></select></div>
+<div>
+<label>Base</label>
+<select id="base">
+<option value="water">Água — sorbet</option>
+<option value="milk">Leite — gelado de leite</option>
+</select>
 </div>
+<div>
+<label>Quantidade (kg)</label>
+<input id="batch" type="number" min="1" max="6" step="0.1" value="6">
+</div>
+<div>
+<label>Temperatura de serviço (°C)</label>
+<input id="temperature" type="number" min="-24" max="-12" step="1" value="-20">
+</div>
+</div>
+<div class="actions">
+<button class="primary" onclick="generate()">Gerar receita</button>
+<button onclick="openGenerated()">Abrir no analisador</button>
+</div>
+<div id="generated"></div>
+</section>
+
+<section id="analyze" class="panel hidden">
+<h2>Analisar e corrigir receita</h2>
+<label>Nome</label>
+<input id="recipeName" value="Receita Sanremo">
+<div class="grid">
+<div>
+<label>Peso final pretendido (kg)</label>
+<input id="targetKg" type="number" min="1" max="6" step="0.1" value="6">
+</div>
+<div>
+<label>Temperatura (°C)</label>
+<input id="targetTemp" type="number" min="-24" max="-12" value="-20">
+</div>
+</div>
+<div id="recipeLines"></div>
+<div class="grid">
+<div>
+<label>Adicionar ingrediente</label>
+<select id="addIngredient"></select>
+</div>
+<div style="align-self:end">
+<button onclick="addLine()">+ Adicionar</button>
+</div>
+</div>
+<div class="actions">
+<button class="primary" onclick="analyze()">Analisar</button>
+<button onclick="correct()">Corrigir automaticamente</button>
+<button onclick="saveRecipe()">Guardar receita</button>
+<button onclick="window.print()">Imprimir</button>
+</div>
+<div id="analysisResult"></div>
+</section>
+
+<section id="products" class="panel hidden">
+<h2>Biblioteca de produtos</h2>
+<p class="notice">
+Podes adicionar qualquer matéria-prima e indicar o preço
+do saco, lata, balde ou embalagem. O programa calcula €/kg.
+Para produtos líquidos, indica também a densidade.
+</p>
+<input id="productSearch" placeholder="Procurar produto..." oninput="renderProducts()">
+<div id="productList"></div>
+<div class="actions">
+<button class="primary" onclick="newProduct()">+ Novo produto</button>
+<button onclick="exportData('products')">Exportar produtos</button>
+</div>
+
+<div id="productForm" class="hidden">
+<h3>Adicionar / editar produto</h3>
+<input id="productId" type="hidden">
+<label>Nome do produto</label><input id="pName">
+<label>Categoria</label>
+<select id="pCategory">
+<option>Fruta</option><option>Fruto seco</option>
+<option>Leite</option><option>Açúcar</option>
+<option>Estabilizante</option><option>Pasta</option>
+<option>Outro</option>
+</select>
+<div class="grid">
+<div><label>Gordura (%)</label><input id="pFat" type="number" step="any"></div>
+<div><label>Proteína (%)</label><input id="pProtein" type="number" step="any"></div>
+<div><label>Hidratos (%)</label><input id="pCarb" type="number" step="any"></div>
+<div><label>Açúcares (%)</label><input id="pSugar" type="number" step="any"></div>
+<div><label>Água (%)</label><input id="pWater" type="number" step="any"></div>
+<div><label>PAC relativo</label><input id="pPac" type="number" step="any"></div>
+<div><label>POD relativo</label><input id="pPod" type="number" step="any"></div>
+<div><label>Dosagem máxima (g/kg)</label><input id="pMax" type="number" step="any"></div>
+</div>
+<h3>Preço de compra</h3>
+<div class="grid">
+<div><label>Preço total (€)</label><input id="pPrice" type="number" step="any"></div>
+<div><label>Quantidade na embalagem</label><input id="pSize" type="number" step="any"></div>
+<div>
+<label>Unidade</label>
+<select id="pUnit"><option>kg</option><option>g</option><option>L</option><option>ml</option></select>
+</div>
+<div><label>Densidade kg/L</label><input id="pDensity" type="number" step="any"></div>
+</div>
+<label>Alérgenos</label><input id="pAllergens">
+<label><input id="pVerified" type="checkbox"> Dados confirmados pela ficha técnica</label>
+<div class="actions">
+<button class="primary" onclick="saveProduct()">Guardar produto</button>
+<button onclick="document.getElementById('productForm').classList.add('hidden')">Cancelar</button>
+</div>
+</div>
+</section>
+
+<section id="saved" class="panel hidden">
+<h2>Receitas privadas</h2>
+<p class="notice">
+Importa o backup Sanremo em JSON. Produtos e receitas
+ficam neste navegador, não dentro do HTML público.
+</p>
+<label>Importar backup</label>
+<input type="file" id="backupFile" accept=".json" onchange="importBackup(event)">
+<div class="actions">
+<button onclick="exportData('recipes')">Exportar receitas</button>
+<button onclick="auditAll()">Auditar todas</button>
+</div>
+<div id="savedList"></div>
+<div id="auditAllResult"></div>
+</section>
+
+<section id="costs" class="panel hidden">
+<h2>Custo de produção</h2>
+<div id="costSummary"></div>
+<div class="grid">
+<div><label>Mão de obra / lote (€)</label><input id="labor" type="number" step="any"></div>
+<div><label>Eletricidade / lote (€)</label><input id="energy" type="number" step="any"></div>
+<div><label>Outros custos / lote (€)</label><input id="other" type="number" step="any"></div>
+<div><label>Perdas de produção (%)</label><input id="loss" type="number" min="0" max="99" value="0"></div>
+<div><label>Densidade da mistura (kg/L)</label><input id="density" type="number" step="any" value="1.05"></div>
+<div><label>Ar incorporado — overrun (%)</label><input id="overrun" type="number" step="any" value="30"></div>
+</div>
+<div class="actions"><button class="primary" onclick="calculateCosts()">Calcular custos</button></div>
+<div id="costResult"></div>
+</section>
+
+<section id="profit" class="panel hidden">
+<h2>Rentabilidade das vendas</h2>
+<p class="notice">
+Introduz o preço recebido pelo Sanremo.
+Para o supermercado, usa o preço faturado ao REWE,
+não o preço da prateleira.
+</p>
+<div class="grid">
+<div><label>IVA da venda (%)</label><input id="vat" type="number" value="7"></div>
+<div><label>Preço introduzido</label>
+<select id="priceType"><option value="gross">Com IVA</option><option value="net">Sem IVA</option></select></div>
+</div>
+<div id="saleInputs"></div>
+<div class="actions"><button class="primary" onclick="calculateProfit()">Calcular rentabilidade</button></div>
+<div id="profitResult"></div>
+</section>
+
+</main>
+<footer>Sanremo Gelato Lab • Dados locais • Fazer backups regularmente</footer>
 
 <script>
-let items=[];
-let products=[];
-let sales=[];
-let currentRecipe=[];
-let editingProductId=null;
+"use strict";
 const $=id=>document.getElementById(id);
-const KEY='sanremo_kalkulation_v1';
-function eur(n){return (Number(n)||0).toLocaleString('de-DE',{style:'currency',currency:'EUR'});}
-function num(n){return Number(String(n||0).replace(',','.'))||0;}
-function vatFactor(v){return 1+(Number(v)||0)/100;}
-function today(){return new Date().toISOString().slice(0,10)}
-function monthNow(){return new Date().toISOString().slice(0,7)}
-function id(){return Date.now()+'_'+Math.random().toString(36).slice(2,7)}
-function save(){localStorage.setItem(KEY,JSON.stringify({items,products,sales}));}
-function load(){const d=localStorage.getItem(KEY);if(d){try{const o=JSON.parse(d);items=o.items||[];products=o.products||[];sales=o.sales||[]}catch(e){}}}
-function convertQty(qty,unit,targetUnit){qty=num(qty);if(unit===targetUnit)return qty;if(unit==='g'&&targetUnit==='kg')return qty/1000;if(unit==='kg'&&targetUnit==='g')return qty*1000;if(unit==='ml'&&targetUnit==='l')return qty/1000;if(unit==='l'&&targetUnit==='ml')return qty*1000;return qty;}
-function baseUnit(unit){if(unit==='g'||unit==='kg')return 'kg';if(unit==='ml'||unit==='l')return 'l';return 'stk';}
-function normalizeToBase(qty,unit){if(unit==='g')return qty/1000;if(unit==='kg')return qty;if(unit==='ml')return qty/1000;if(unit==='l')return qty;return qty;}
-function itemNetTotal(item){const price=num(item.price);return item.priceType==='gross'?price/vatFactor(item.vat):price;}
-function itemNetUnit(item){const baseQty=normalizeToBase(num(item.qty),item.unit);return baseQty>0?itemNetTotal(item)/baseQty:0;}
-function itemLineCostNet(item,qty,unit){const base=normalizeToBase(num(qty),unit);return itemNetUnit(item)*base;}
-function showTab(idName,btn){document.querySelectorAll('.tabPage').forEach(x=>x.classList.add('hidden'));$(idName).classList.remove('hidden');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');refreshAll();}
-function addItem(){const name=$('itemName').value.trim();if(!name){alert('Name fehlt.');return}const item={id:id(),name,category:$('itemCategory').value.trim(),priceType:$('itemPriceType').value,vat:num($('itemVat').value),price:num($('itemPrice').value),qty:num($('itemQty').value),unit:$('itemUnit').value,supplier:$('itemSupplier').value.trim(),createdAt:new Date().toISOString()};if(!item.price||!item.qty){alert('Preis und Menge fehlen.');return}items.push(item);['itemName','itemCategory','itemPrice','itemQty','itemSupplier'].forEach(x=>$(x).value='');save();refreshAll();}
-function deleteItem(itemId){if(confirm('Einkauf/Zutat löschen?')){items=items.filter(x=>x.id!==itemId);products.forEach(p=>p.recipe=(p.recipe||[]).filter(r=>r.itemId!==itemId));save();refreshAll();}}
-function renderItems(){if(!items.length){$('itemsTable').innerHTML='<em>Keine Einkaufspreise gespeichert.</em>';return}let h='<table><thead><tr><th>Name</th><th>Kategorie</th><th>Lieferant</th><th>Preis</th><th>Netto/Stammeinheit</th><th>MwSt</th><th></th></tr></thead><tbody>';items.forEach(i=>{h+=`<tr><td><b>${esc(i.name)}</b></td><td>${esc(i.category)}</td><td>${esc(i.supplier)}</td><td>${eur(i.price)} ${i.priceType==='gross'?'brutto':'netto'} / ${i.qty} ${i.unit}</td><td class="right">${eur(itemNetUnit(i))} / ${baseUnit(i.unit)}</td><td class="center"><span class="pill ${i.vat==7?'pill7':'pill19'}">${i.vat}%</span></td><td><button class="red small" onclick="deleteItem('${i.id}')">Löschen</button></td></tr>`});h+='</tbody></table>';$('itemsTable').innerHTML=h;}
-function renderRecipeSelect(){const s=$('recipeItem');s.innerHTML='<option value="">-- Zutat wählen --</option>';items.forEach(i=>{const o=document.createElement('option');o.value=i.id;o.textContent=i.name;s.appendChild(o)});const sp=$('saleProduct');sp.innerHTML='<option value="">-- Produkt wählen --</option>';products.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.name;sp.appendChild(o)})}
-function addRecipeLine(){const itemId=$('recipeItem').value;const qty=num($('recipeQty').value);const unit=$('recipeUnit').value;if(!itemId||!qty){alert('Zutat und Menge fehlen.');return}currentRecipe.push({itemId,qty,unit});$('recipeQty').value='';renderRecipeLines();renderProductCalc();}
-function removeRecipeLine(idx){currentRecipe.splice(idx,1);renderRecipeLines();renderProductCalc();}
-function recipeCost(recipe){return (recipe||[]).reduce((sum,r)=>{const it=items.find(i=>i.id===r.itemId);return sum+(it?itemLineCostNet(it,r.qty,r.unit):0)},0);}
-function productCalc(productLike){const sellGross=num(productLike.sellGross);const vat=num(productLike.vat);const sellNet=sellGross/vatFactor(vat);const recipeNet=recipeCost(productLike.recipe||[]);const packaging=num(productLike.packaging);const overhead=num(productLike.overhead);const totalCost=recipeNet+packaging+overhead;const profit=sellNet-totalCost;const margin=sellNet>0?(profit/sellNet*100):0;const markup=totalCost>0?(sellNet/totalCost):0;return{sellGross,sellNet,recipeNet,packaging,overhead,totalCost,profit,margin,markup,vat};}
-function renderRecipeLines(){if(!currentRecipe.length){$('recipeLines').innerHTML='<em>Noch keine Zutaten.</em>';return}let h='<table><thead><tr><th>Zutat</th><th>Menge</th><th>Kosten netto</th><th></th></tr></thead><tbody>';currentRecipe.forEach((r,idx)=>{const it=items.find(i=>i.id===r.itemId);h+=`<tr><td>${esc(it?it.name:'?')}</td><td>${r.qty} ${r.unit}</td><td class="right">${eur(it?itemLineCostNet(it,r.qty,r.unit):0)}</td><td><button class="red small" onclick="removeRecipeLine(${idx})">Entfernen</button></td></tr>`});h+='</tbody></table>';$('recipeLines').innerHTML=h;}
-function renderProductCalc(){const p={sellGross:num($('prodSellGross').value),vat:num($('prodVat').value),packaging:num($('prodPackaging').value),overhead:num($('prodOverhead').value),recipe:currentRecipe};const c=productCalc(p);const min=num($('prodMinProfit').value);let cls=c.profit<0?'dangerBox':(c.profit<min?'dangerBox':'successBox');let msg=c.profit<0?'ACHTUNG: Verkauf unter Kosten.':(c.profit<min?'ACHTUNG: Gewinn unter deinem Mindestziel.':'OK: Produkt hat Gewinn.');$('productCalcBox').innerHTML=`<div class="${cls}"><b>${msg}</b><br>Verkauf netto: ${eur(c.sellNet)} · Rezept: ${eur(c.recipeNet)} · Verpackung: ${eur(c.packaging)} · Personal/Energie: ${eur(c.overhead)} · Gesamtkosten netto: ${eur(c.totalCost)} · Gewinn netto/Stück: <b>${eur(c.profit)}</b> · Marge: <b>${c.margin.toFixed(1).replace('.',',')}%</b></div>`;}
-['prodSellGross','prodVat','prodPackaging','prodOverhead','prodMinProfit'].forEach(idn=>document.addEventListener('input',e=>{if(e.target&&e.target.id===idn)renderProductCalc()}));
-function saveProduct(){const name=$('prodName').value.trim();if(!name){alert('Produktname fehlt.');return}const p={id:editingProductId||id(),name,sellGross:num($('prodSellGross').value),vat:num($('prodVat').value),packaging:num($('prodPackaging').value),overhead:num($('prodOverhead').value),minProfit:num($('prodMinProfit').value),recipe:JSON.parse(JSON.stringify(currentRecipe)),updatedAt:new Date().toISOString()};if(!p.sellGross){alert('Verkaufspreis fehlt.');return}if(editingProductId){products=products.map(x=>x.id===editingProductId?p:x)}else{products.push(p)}editingProductId=null;clearProductForm();save();refreshAll();}
-function clearProductForm(){['prodName','prodSellGross'].forEach(x=>$(x).value='');$('prodPackaging').value='0';$('prodOverhead').value='0';$('prodMinProfit').value='0.50';currentRecipe=[];renderRecipeLines();renderProductCalc();}
-function editProduct(pid){const p=products.find(x=>x.id===pid);if(!p)return;editingProductId=p.id;$('prodName').value=p.name;$('prodSellGross').value=p.sellGross;$('prodVat').value=p.vat;$('prodPackaging').value=p.packaging;$('prodOverhead').value=p.overhead;$('prodMinProfit').value=p.minProfit??0.5;currentRecipe=JSON.parse(JSON.stringify(p.recipe||[]));renderRecipeLines();renderProductCalc();window.scrollTo({top:0,behavior:'smooth'});}
-function deleteProduct(pid){if(confirm('Produkt löschen?')){products=products.filter(p=>p.id!==pid);sales=sales.filter(s=>s.productId!==pid);save();refreshAll();}}
-function renderProducts(){if(!products.length){$('productsTable').innerHTML='<em>Keine Produkte gespeichert.</em>';return}let h='<table><thead><tr><th>Produkt</th><th>VK brutto</th><th>Kosten netto</th><th>Gewinn netto/Stück</th><th>Marge</th><th>Status</th><th></th></tr></thead><tbody>';products.forEach(p=>{const c=productCalc(p);let status=c.profit<0?'<span class="pill pillBad">VERLUST</span>':(c.profit<(p.minProfit||0)?'<span class="pill pillWarn">ZU NIEDRIG</span>':'<span class="pill pillOk">OK</span>');h+=`<tr><td><b>${esc(p.name)}</b></td><td class="right">${eur(p.sellGross)} <span class="pill ${p.vat==7?'pill7':'pill19'}">${p.vat}%</span></td><td class="right">${eur(c.totalCost)}</td><td class="right ${c.profit<0?'bad':'ok'}">${eur(c.profit)}</td><td class="right">${c.margin.toFixed(1).replace('.',',')}%</td><td>${status}</td><td><button class="gray small" onclick="editProduct('${p.id}')">Bearbeiten</button><button class="red small" onclick="deleteProduct('${p.id}')">Löschen</button></td></tr>`});h+='</tbody></table>';$('productsTable').innerHTML=h;}
-$('saleProduct').addEventListener('change',()=>{const p=products.find(x=>x.id===$('saleProduct').value);if(p)$('salePrice').value=p.sellGross});
-function addSale(){const productId=$('saleProduct').value;const p=products.find(x=>x.id===productId);if(!p){alert('Produkt wählen.');return}const sale={id:id(),date:$('saleDate').value||today(),productId,qty:num($('saleQty').value),priceGross:num($('salePrice').value)||p.sellGross,createdAt:new Date().toISOString()};if(!sale.qty){alert('Menge fehlt.');return}sales.push(sale);$('saleQty').value='1';$('salePrice').value='';save();refreshAll();}
-function deleteSale(sid){if(confirm('Verkauf löschen?')){sales=sales.filter(s=>s.id!==sid);save();refreshAll();}}
-function renderSales(){if(!sales.length){$('salesTable').innerHTML='<em>Keine Verkäufe gespeichert.</em>';return}let h='<table><thead><tr><th>Datum</th><th>Produkt</th><th>Menge</th><th>Umsatz brutto</th><th>Gewinn netto ca.</th><th></th></tr></thead><tbody>';sales.slice().reverse().forEach(s=>{const p=products.find(x=>x.id===s.productId);const c=p?productCalc({...p,sellGross:s.priceGross}):null;h+=`<tr><td>${s.date}</td><td>${esc(p?p.name:'?')}</td><td class="right">${s.qty}</td><td class="right">${eur(s.priceGross*s.qty)}</td><td class="right ${c&&c.profit<0?'bad':'ok'}">${c?eur(c.profit*s.qty):'-'}</td><td><button class="red small" onclick="deleteSale('${s.id}')">Löschen</button></td></tr>`});h+='</tbody></table>';$('salesTable').innerHTML=h;}
-function renderDashboard(){const mk=monthNow();const monthSales=sales.filter(s=>s.date.slice(0,7)===mk);let gross=0,net=0,cost=0,profit=0,vat7=0,vat19=0;monthSales.forEach(s=>{const p=products.find(x=>x.id===s.productId);if(!p)return;const c=productCalc({...p,sellGross:s.priceGross});gross+=s.priceGross*s.qty;net+=c.sellNet*s.qty;cost+=c.totalCost*s.qty;profit+=c.profit*s.qty;const vatAmount=(s.priceGross-(s.priceGross/vatFactor(p.vat)))*s.qty;if(p.vat==7)vat7+=vatAmount;else vat19+=vatAmount});$('dashboardSummary').innerHTML=`<div class="sumBox">Umsatz brutto<br><b>${eur(gross)}</b></div><div class="sumBox">Umsatz netto<br><b>${eur(net)}</b></div><div class="sumBox">Kosten netto ca.<br><b>${eur(cost)}</b></div><div class="sumBox">Gewinn netto ca.<br><b class="${profit<0?'bad':'ok'}">${eur(profit)}</b></div><div class="sumBox">MwSt 7% ca.<br><b>${eur(vat7)}</b></div><div class="sumBox">MwSt 19% ca.<br><b>${eur(vat19)}</b></div>`;renderRisks();}
-function renderRisks(){const risk=products.map(p=>({p,c:productCalc(p)})).filter(x=>x.c.profit<0||x.c.profit<(x.p.minProfit||0));if(!risk.length){$('riskList').innerHTML='<div class="successBox">Keine kritischen Produkte gefunden.</div>';return}let h='<table><thead><tr><th>Produkt</th><th>Gewinn</th><th>Mindestziel</th><th>Empfehlung</th></tr></thead><tbody>';risk.forEach(x=>{const need=x.c.totalCost+(x.p.minProfit||0);const grossNeed=need*vatFactor(x.p.vat);h+=`<tr><td>${esc(x.p.name)}</td><td class="right bad">${eur(x.c.profit)}</td><td class="right">${eur(x.p.minProfit||0)}</td><td>VK brutto mindestens ca. <b>${eur(grossNeed)}</b></td></tr>`});h+='</tbody></table>';$('riskList').innerHTML=h;}
-function renderReport(){const mk=$('reportMonth').value||monthNow();const list=sales.filter(s=>s.date.slice(0,7)===mk);let by={};list.forEach(s=>{const p=products.find(x=>x.id===s.productId);if(!p)return;const c=productCalc({...p,sellGross:s.priceGross});if(!by[p.id])by[p.id]={name:p.name,qty:0,gross:0,net:0,cost:0,profit:0,vat7:0,vat19:0};by[p.id].qty+=s.qty;by[p.id].gross+=s.priceGross*s.qty;by[p.id].net+=c.sellNet*s.qty;by[p.id].cost+=c.totalCost*s.qty;by[p.id].profit+=c.profit*s.qty;const vat=(s.priceGross-s.priceGross/vatFactor(p.vat))*s.qty;if(p.vat==7)by[p.id].vat7+=vat;else by[p.id].vat19+=vat});let totals={qty:0,gross:0,net:0,cost:0,profit:0,vat7:0,vat19:0};let h=`<h3>Bericht ${mk}</h3><table><thead><tr><th>Produkt</th><th>Menge</th><th>Umsatz brutto</th><th>Umsatz netto</th><th>Kosten netto ca.</th><th>Gewinn netto ca.</th><th>MwSt 7%</th><th>MwSt 19%</th></tr></thead><tbody>`;Object.values(by).forEach(r=>{Object.keys(totals).forEach(k=>totals[k]+=r[k]||0);h+=`<tr><td>${esc(r.name)}</td><td class="right">${r.qty}</td><td class="right">${eur(r.gross)}</td><td class="right">${eur(r.net)}</td><td class="right">${eur(r.cost)}</td><td class="right ${r.profit<0?'bad':'ok'}">${eur(r.profit)}</td><td class="right">${eur(r.vat7)}</td><td class="right">${eur(r.vat19)}</td></tr>`});h+=`<tr style="font-weight:800"><td>Summe</td><td class="right">${totals.qty}</td><td class="right">${eur(totals.gross)}</td><td class="right">${eur(totals.net)}</td><td class="right">${eur(totals.cost)}</td><td class="right ${totals.profit<0?'bad':'ok'}">${eur(totals.profit)}</td><td class="right">${eur(totals.vat7)}</td><td class="right">${eur(totals.vat19)}</td></tr>`;h+='</tbody></table><div class="infoBox"><b>Hinweis:</b> Dieser Bericht ist eine interne Kalkulationshilfe, kein Ersatz für Buchhaltung/Kasse/Steuerberater.</div>';$('reportBox').innerHTML=h;}
-function backupJSON(){const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),items,products,sales},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sanremo_kalkulation_backup_'+today()+'.json';a.click();URL.revokeObjectURL(a.href)}
-$('importFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(confirm('Aktuelle Daten ersetzen?')){items=o.items||[];products=o.products||[];sales=o.sales||[];save();refreshAll()}}catch(err){alert('Import nicht möglich.')}};r.readAsText(f)});
-function resetAll(){if(!confirm('Wirklich ALLES löschen?'))return;if(!confirm('Alle Einkaufspreise, Produkte und Verkäufe werden gelöscht. Fortfahren?'))return;items=[];products=[];sales=[];currentRecipe=[];localStorage.removeItem(KEY);refreshAll();}
-function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-function refreshAll(){renderItems();renderRecipeSelect();renderRecipeLines();renderProductCalc();renderProducts();renderSales();renderDashboard();renderReport();save();}
-load();$('saleDate').value=today();$('reportMonth').value=monthNow();refreshAll();
+const num=v=>{
+ if(v===null||v===undefined||String(v).trim()==="")return null;
+ const x=Number(String(v).replace(",","."));
+ return Number.isFinite(x)?x:null;
+};
+const money=x=>x===null?"Incompleto":x.toLocaleString("pt-PT",{style:"currency",currency:"EUR"});
+const fmt=(x,n=2)=>Number(x).toLocaleString("pt-PT",{maximumFractionDigits:n});
+const escapeHTML=s=>String(s??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+const clone=x=>JSON.parse(JSON.stringify(x));
+const uid=()=>crypto.randomUUID?crypto.randomUUID():"p"+Date.now()+Math.random();
+
+let products=JSON.parse(localStorage.getItem("sanremoProducts")||"null")||[
+ {id:"water",name:"Água",category:"Outro",fat:0,protein:0,carb:0,sugar:0,water:100,pac:0,pod:0,price:0,verified:true},
+ {id:"milk",name:"Leite inteiro",category:"Leite",fat:3.5,protein:3.3,carb:4.8,sugar:4.8,water:87.5,pac:null,pod:null,verified:false},
+ {id:"cream",name:"Natas 35%",category:"Leite",fat:35,protein:2.3,carb:3.4,sugar:3.4,water:59,pac:null,pod:null,verified:false},
+ {id:"sugar",name:"Açúcar sacarose",category:"Açúcar",fat:0,protein:0,carb:100,sugar:100,water:0,pac:100,pod:100,verified:true},
+ {id:"dextrose",name:"Dextrose anidra",category:"Açúcar",fat:0,protein:0,carb:100,sugar:100,water:0,pac:190,pod:70,verified:false},
+ {id:"powder",name:"Leite em pó magro",category:"Leite",fat:0.8,protein:35,carb:52,sugar:52,water:4,pac:null,pod:null,verified:false},
+ {id:"strawberry",name:"Morango",category:"Fruta",fat:0.4,protein:0.6,carb:7.7,sugar:4.9,water:90,pac:null,pod:null,verified:false},
+ {id:"raspberry",name:"Framboesa",category:"Fruta",fat:0.5,protein:1.5,carb:5.4,sugar:5.4,water:86,pac:null,pod:null,verified:false},
+ {id:"mango",name:"Manga",category:"Fruta",fat:0.4,protein:0.8,carb:15,sugar:14,water:83,pac:null,pod:null,verified:false},
+ {id:"banana",name:"Banana",category:"Fruta",fat:0.3,protein:1.1,carb:20,sugar:12,water:75,pac:null,pod:null,verified:false},
+ {id:"lemon",name:"Limão",category:"Fruta",fat:0.3,protein:1.1,carb:9,sugar:2.5,water:89,pac:null,pod:null,verified:false},
+ {id:"hazelnut",name:"Pasta avelã 100%",category:"Fruto seco",fat:66,protein:15,carb:7,sugar:4,water:3,pac:null,pod:null,verified:false},
+ {id:"pistachio",name:"Pasta pistácio 100% (exemplo)",category:"Fruto seco",fat:45,protein:20,carb:27,sugar:8,water:4,pac:null,pod:null,verified:false},
+ {id:"stabilizer",name:"Estabilizante neutro genérico",category:"Estabilizante",fat:0,protein:0,carb:95,sugar:0,water:5,pac:null,pod:null,max:4,verified:false}
+];
+let recipes=JSON.parse(localStorage.getItem("sanremoRecipes")||"[]");
+let current=[];
+let generated=[];
+let lastCost=null;
+
+const sales=[
+ ["Bola","Bola na gelataria",70],
+ ["Kg","Venda por kg",1000],
+ ["170","Supermercado 170 g",170],
+ ["750","Supermercado 750 g",750]
+];
+
+function persist(){
+ try{
+  localStorage.setItem("sanremoProducts",JSON.stringify(products));
+  localStorage.setItem("sanremoRecipes",JSON.stringify(recipes));
+ }catch(e){alert("Armazenamento cheio. Exporta um backup.");}
+}
+function product(id){return products.find(x=>x.id===id)}
+function tab(id,button){
+ document.querySelectorAll(".panel").forEach(x=>x.classList.add("hidden"));
+ $(id).classList.remove("hidden");
+ document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+ if(button)button.classList.add("active");
+ if(id==="products")renderProducts();
+ if(id==="saved")renderSaved();
+ if(id==="costs")calculateCosts();
+ if(id==="profit")calculateProfit();
+}
+function showTab(id){
+ const b=[...document.querySelectorAll("nav button")].find(x=>x.getAttribute("onclick")?.includes("'"+id+"'"));
+ tab(id,b);
+}
+function refreshSelects(){
+ const opts=products.map(p=>`<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)}</option>`).join("");
+ $("addIngredient").innerHTML=opts;
+ const flavors=products.filter(p=>["Fruta","Fruto seco"].includes(p.category));
+ $("flavor").innerHTML=flavors.map(p=>`<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)}</option>`).join("");
+}
+function rowsTotal(lines){return lines.reduce((s,r)=>s+Number(r.g||0),0)}
+function scale(lines,target){
+ let t=rowsTotal(lines);
+ if(t<=0)return [];
+ let out=lines.map(x=>({...x,g:Math.round(x.g*target/t)}));
+ let delta=target-rowsTotal(out);
+ if(out.length)out[0].g+=delta;
+ return out;
+}
+function generate(){
+ const id=$("flavor").value;
+ const p=product(id);
+ if(!p)return;
+ const kg=num($("batch").value),temp=num($("temperature").value);
+ if(kg===null||kg<1||kg>6||temp===null||temp< -24||temp> -12){
+  alert("Escolhe 1 a 6 kg e uma temperatura entre -24 e -12 °C.");return;
+ }
+ const total=Math.round(kg*1000);
+ const dairy=$("base").value==="milk";
+ const fruit=p.category==="Fruta";
+ const pct=fruit?(dairy?0.30:0.45):0.09;
+ let lines=[
+  {id:dairy?"milk":"water",g:Math.round(total*(dairy?0.54:0.34))},
+  {id:p.id,g:Math.round(total*pct)},
+  {id:"sugar",g:Math.round(total*(dairy?0.10:0.14))},
+  {id:"dextrose",g:Math.round(total*(dairy?0.055:0.08))}
+ ];
+ if(dairy){
+  lines.push({id:"cream",g:Math.round(total*0.04)});
+  lines.push({id:"powder",g:Math.round(total*0.055)});
+ }
+ lines.push({id:"stabilizer",g:Math.round(total*0.003)});
+ let sum=rowsTotal(lines);
+ lines[0].g+=total-sum;
+ if(lines[0].g<0){
+  $("generated").innerHTML='<div class="notice error">Não foi possível construir uma formulação inicial com estes parâmetros.</div>';
+  generated=[];return;
+ }
+ generated=lines;
+ const result=calculate(lines);
+ $("generated").innerHTML=`
+ <h3>Formulação inicial: ${escapeHTML(p.name)}</h3>
+ <div class="notice warning">
+ Receita experimental. As percentagens iniciais não foram validadas para este fruto,
+ esta base ou a temperatura escolhida. Verifica o diagnóstico antes da produção.
+ </div>${recipeTable(lines)}
+ ${metricCards(result)}
+ `;
+}
+function recipeTable(lines){
+ return `<div class="scroll"><table>
+ <tr><th>Ingrediente</th><th>Quantidade</th><th>Custo</th></tr>
+ ${lines.map(r=>{
+ const p=product(r.id);
+ const price=unitCost(p);
+ return `<tr><td>${escapeHTML(p?.name||r.id)}</td>
+ <td>${fmt(r.g,0)} g</td>
+ <td>${money(price===null?null:price*r.g/1000)}</td></tr>`;
+ }).join("")}
+ <tr><th>Total</th><th>${fmt(rowsTotal(lines),0)} g</th><th></th></tr>
+ </table></div>`;
+}
+function openGenerated(){
+ if(!generated.length)generate();
+ if(!generated.length)return;
+ current=clone(generated);
+ $("recipeName").value=$("flavor").selectedOptions[0]?.text||"Nova receita";
+ $("targetKg").value=rowsTotal(current)/1000;
+ $("targetTemp").value=$("temperature").value;
+ renderLines();$("analysisResult").innerHTML="";
+ showTab("analyze");
+}
+function renderLines(){
+ $("recipeLines").innerHTML=current.map((r,i)=>`
+ <div class="recipe-line">
+ <select onchange="changeLine(${i},'id',this.value)">
+ ${products.map(p=>`<option value="${escapeHTML(p.id)}" ${p.id===r.id?"selected":""}>${escapeHTML(p.name)}</option>`).join("")}
+ </select>
+ <input type="number" min="0" step="1" value="${r.g}" onchange="changeLine(${i},'g',this.value)">
+ <button class="danger" onclick="removeLine(${i})">×</button>
+ </div>`).join("");
+}
+function changeLine(i,key,value){
+ if(!current[i])return;
+ current[i][key]=key==="g"?Math.max(0,num(value)||0):value;
+}
+function removeLine(i){current.splice(i,1);renderLines()}
+function addLine(){
+ current.push({id:$("addIngredient").value,g:0});
+ renderLines();
+}
+function calculate(lines){
+ const total=rowsTotal(lines);
+ if(total<=0)return null;
+ let fat=0,protein=0,sugar=0,carb=0,water=0,pac=0,pod=0;
+ let completePAC=true,completePOD=true,completeWater=true;
+ let verified=true,issues=[],warnings=[];
+ let ingredientsCost=0,costComplete=true;
+ for(const r of lines){
+  const p=product(r.id);
+  if(!p){issues.push("Ingrediente desconhecido: "+r.id);continue;}
+  if(r.g<0||!Number.isFinite(r.g)){issues.push("Quantidade inválida: "+p.name);continue;}
+  const f=r.g/total;
+  fat+=f*(num(p.fat)||0);
+  protein+=f*(num(p.protein)||0);
+  sugar+=f*(num(p.sugar)||0);
+  carb+=f*(num(p.carb)||0);
+  if(p.water===null||p.water===undefined)completeWater=false;
+  else water+=f*Number(p.water);
+  if(p.pac===null||p.pac===undefined)completePAC=false;
+  else pac+=f*Number(p.pac);
+  if(p.pod===null||p.pod===undefined)completePOD=false;
+  else pod+=f*Number(p.pod);
+  if(!p.verified)verified=false;
+  const max=num(p.max);
+  if(max!==null&&r.g/total*1000>max+0.001)
+   issues.push(p.name+": dosagem acima do máximo registado.");
+  const cost=unitCost(p);
+  if(cost===null)costComplete=false;
+  else ingredientsCost+=r.g/1000*cost;
+  if((num(p.fat)||0)+(num(p.protein)||0)+(num(p.carb)||0)>101)
+   issues.push(p.name+": composição nutricional incoerente.");
+  if(num(p.sugar)!==null&&num(p.carb)!==null&&Number(p.sugar)>Number(p.carb)+0.1)
+   issues.push(p.name+": açúcares acima dos hidratos de carbono.");
+ }
+ if(!verified)warnings.push("Existem ingredientes sem ficha técnica confirmada.");
+ if(!completePAC)warnings.push("PAC incompleto: faltam propriedades de alguns ingredientes.");
+ if(!completePOD)warnings.push("POD incompleto: faltam propriedades de alguns ingredientes.");
+ if(!completeWater)warnings.push("Teor de água incompleto.");
+ if(!costComplete)warnings.push("Faltam preços de compra.");
+ return {total,fat,protein,sugar,carb,water:completeWater?water:null,
+ solids:completeWater?100-water:null,
+ pac:completePAC?pac:null,pod:completePOD?pod:null,
+ ingredientsCost:costComplete?ingredientsCost:null,
+ issues,warnings,verified};
+}
+function metricCards(r){
+ if(!r)return "";
+ return `<div class="cards">
+ ${[
+ ["Peso",fmt(r.total,0)+" g"],
+ ["Gordura",fmt(r.fat)+"%"],
+ ["Proteínas",fmt(r.protein)+"%"],
+ ["Açúcares",fmt(r.sugar)+"%"],
+ ["Sólidos",r.solids===null?"Incompleto":fmt(r.solids)+"%"],
+ ["PAC relativo",r.pac===null?"Incompleto":fmt(r.pac)],
+ ["POD relativo",r.pod===null?"Incompleto":fmt(r.pod)],
+ ["Ingredientes",money(r.ingredientsCost)]
+ ].map(x=>`<div class="card"><small>${x[0]}</small><strong>${x[1]}</strong></div>`).join("")}
+ </div>`;
+}
+function auditHTML(r){
+ if(!r)return '<div class="notice error">Receita vazia.</div>';
+ let state=r.issues.length?"Erros detetados":
+ r.warnings.length?"Dados insuficientes":"Sem alertas nos dados registados";
+ return `<div class="notice ${r.issues.length?"error":"warning"}">
+ <b>${state}</b><br>
+ ${r.issues.map(escapeHTML).join("<br>")}
+ ${r.warnings.map(escapeHTML).join("<br>")}
+ <p>Este resultado não certifica textura, estabilidade, segurança alimentar nem equilíbrio perfeito.</p>
+ </div>`;
+}
+function analyze(){
+ if(!current.length){alert("Adiciona ingredientes.");return;}
+ const r=calculate(current);
+ const t=num($("targetKg").value);
+ const tTemp=num($("targetTemp").value);
+ let note="";
+ if(t!==null&&Math.abs(r.total-t*1000)>0.1)
+  note='<div class="notice warning">O peso da receita é diferente do peso pretendido.</div>';
+ if(tTemp===null||tTemp< -24||tTemp> -12)
+  note+='<div class="notice error">Temperatura fora do intervalo permitido.</div>';
+ $("analysisResult").innerHTML=note+auditHTML(r)+metricCards(r)+recipeTable(current);
+ lastCost=null;
+}
+function correct(){
+ const kg=num($("targetKg").value);
+ if(kg===null||kg<1||kg>6)return alert("Escolhe entre 1 e 6 kg.");
+ if(!current.length)return alert("Adiciona primeiro os ingredientes.");
+ const proposed=scale(current,Math.round(kg*1000));
+ if(!proposed.length)return alert("Receita vazia.");
+ const issues=calculate(proposed);
+ $("analysisResult").innerHTML=`
+ <h3>Proposta de correção</h3>
+ <div class="notice warning">
+ Esta correção garante apenas a normalização do peso.
+ Não otimiza automaticamente todos os parâmetros de formulação,
+ nem garante PAC, POD ou textura à temperatura escolhida.
+ </div>
+ ${auditHTML(issues)}${metricCards(issues)}${recipeTable(proposed)}
+ <div class="actions"><button class="primary" onclick="applyCorrection()">Aplicar proposta</button></div>`;
+ window.proposedRecipe=proposed;
+}
+function applyCorrection(){
+ if(!window.proposedRecipe)return;
+ current=clone(window.proposedRecipe);
+ renderLines();analyze();
+}
+function saveRecipe(){
+ if(!current.length)return alert("Receita vazia.");
+ const name=$("recipeName").value.trim()||"Receita sem nome";
+ const id=uid();
+ recipes.push({id,name,items:clone(current),temperature:num($("targetTemp").value)});
+ persist();renderSaved();
+ alert("Receita guardada neste navegador.");
+}
+function renderSaved(){
+ $("savedList").innerHTML=recipes.map((r,i)=>`
+ <div class="product">
+ <b>${escapeHTML(r.name)}</b><br>
+ <small>${fmt(rowsTotal(r.items||[]),0)} g</small>
+ <div class="actions">
+ <button onclick="loadRecipe(${i})">Abrir</button>
+ <button class="danger" onclick="deleteRecipe(${i})">Apagar</button>
+ </div></div>`).join("")||"<p>Sem receitas guardadas.</p>";
+}
+function loadRecipe(i){
+ const r=recipes[i];if(!r)return;
+ current=clone(r.items).filter(x=>x.id&&Number.isFinite(Number(x.g)));
+ $("recipeName").value=r.name;
+ $("targetKg").value=Math.min(6,Math.max(1,rowsTotal(current)/1000));
+ $("targetTemp").value=r.temperature??-20;
+ renderLines();showTab("analyze");analyze();
+}
+function deleteRecipe(i){
+ if(!confirm("Apagar esta receita?"))return;
+ recipes.splice(i,1);persist();renderSaved();
+}
+function auditAll(){
+ let problems=0,incomplete=0,ok=0;
+ for(const r of recipes){
+  const x=calculate(r.items||[]);
+  if(!x||x.issues.length)problems++;
+  else if(x.warnings.length)incomplete++;
+  else ok++;
+ }
+ $("auditAllResult").innerHTML=`
+ <div class="notice warning">
+ <b>Auditoria:</b> ${problems} com erros detetados,
+ ${incomplete} com dados insuficientes,
+ ${ok} sem alertas matemáticos.
+ Nenhuma receita é certificada como perfeita.
+ </div>`;
+}
+function unitCost(p){
+ if(!p)return null;
+ if(p.price!==undefined&&p.price!==null)return num(p.price);
+ const price=num(p.packPrice),size=num(p.packSize);
+ if(price===null||size===null||size<=0)return null;
+ const unit=p.packUnit||"kg";
+ let kg=unit==="kg"?size:unit==="g"?size/1000:null;
+ if(unit==="L"||unit==="ml"){
+  const density=num(p.density);
+  if(density===null||density<=0)return null;
+  kg=(unit==="L"?size:size/1000)*density;
+ }
+ return kg>0?price/kg:null;
+}
+const pFields=["Name","Category","Fat","Protein","Carb","Sugar",
+"Water","Pac","Pod","Max","Price","Size","Unit","Density","Allergens"];
+function newProduct(){
+ $("productForm").classList.remove("hidden");
+ $("productId").value="";
+ for(const f of pFields){
+  const e=$("p"+f);if(e)e.value="";
+ }
+ $("pUnit").value="kg";$("pVerified").checked=false;
+}
+function editProduct(i){
+ const p=products[i];if(!p)return;
+ newProduct();$("productId").value=p.id;
+ const map={
+ Name:"name",Category:"category",Fat:"fat",Protein:"protein",
+ Carb:"carb",Sugar:"sugar",Water:"water",Pac:"pac",Pod:"pod",
+ Max:"max",Price:"packPrice",Size:"packSize",Unit:"packUnit",
+ Density:"density",Allergens:"allergens"
+ };
+ for(const [f,key] of Object.entries(map)){
+  $("p"+f).value=p[key]??"";
+ }
+ if(p.price!==undefined&&p.packPrice===undefined){
+  $("pPrice").value=p.price;
+  $("pSize").value=1;
+  $("pUnit").value="kg";
+ }
+ $("pVerified").checked=!!p.verified;
+ $("productForm").scrollIntoView({behavior:"smooth"});
+}
+function saveProduct(){
+ const id=$("productId").value||uid();
+ const name=$("pName").value.trim();
+ if(!name)return alert("Introduz o nome do produto.");
+ const fields={
+  id,name,category:$("pCategory").value,
+  fat:num($("pFat").value),protein:num($("pProtein").value),
+  carb:num($("pCarb").value),sugar:num($("pSugar").value),
+  water:num($("pWater").value),pac:num($("pPac").value),
+  pod:num($("pPod").value),max:num($("pMax").value),
+  packPrice:num($("pPrice").value),packSize:num($("pSize").value),
+  packUnit:$("pUnit").value,density:num($("pDensity").value),
+  allergens:$("pAllergens").value,verified:$("pVerified").checked
+ };
+ const original=product(id);
+ if(original)Object.assign(original,fields);
+ else products.push(fields);
+ persist();refreshSelects();renderProducts();renderLines();
+ $("productForm").classList.add("hidden");
+}
+function renderProducts(){
+ const q=$("productSearch").value.toLowerCase();
+ $("productList").innerHTML=products.map((p,i)=>({p,i}))
+ .filter(x=>x.p.name.toLowerCase().includes(q))
+ .map(({p,i})=>`
+ <div class="product">
+ <b>${escapeHTML(p.name)}</b><br>
+ <small>${escapeHTML(p.category||"Outro")} · €/kg:
+ ${money(unitCost(p))} · ${p.verified?"Ficha confirmada":"Não validado"}</small>
+ <button onclick="editProduct(${i})">Editar</button>
+ </div>`).join("");
+}
+function importBackup(event){
+ const file=event.target.files?.[0];if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const data=JSON.parse(reader.result);
+   let addedP=0,addedR=0;
+   if(Array.isArray(data.products)){
+    for(const raw of data.products){
+     if(!raw.id||!raw.name)continue;
+     const n=raw.nutrition||{};
+     const old=product(raw.id);
+     const p={
+      id:raw.id,name:raw.name,category:convertCategory(raw.category),
+      fat:num(n.fat),protein:num(n.protein),
+      carb:num(n.carb),sugar:num(n.sugar),
+      water:null,pac:null,pod:null,max:null,
+      allergens:raw.allergens||"",verified:false
+     };
+     if(old){
+      Object.assign(old,{...p,
+       packPrice:old.packPrice,packSize:old.packSize,
+       packUnit:old.packUnit,density:old.density,
+       price:old.price});
+     }else {products.push(p);addedP++;}
+    }
+   }
+   if(Array.isArray(data.recipes)){
+    for(const raw of data.recipes){
+     const converted=convertRecipe(raw);
+     if(!converted)continue;
+     if(recipes.some(x=>x.id===converted.id))continue;
+     recipes.push(converted);addedR++;
+    }
+   }
+   persist();refreshSelects();renderProducts();renderSaved();
+   alert(`Importação: ${addedP} produtos e ${addedR} receitas novas. Confirma os dados técnicos.`);
+  }catch(e){alert("Erro na importação: "+e.message);}
+  event.target.value="";
+ };
+ reader.readAsText(file);
+}
+function convertCategory(c){
+ const s=String(c||"").toLowerCase();
+ if(s.includes("frucht"))return "Fruta";
+ if(s.includes("paste"))return "Pasta";
+ if(s.includes("milch"))return "Leite";
+ if(s.includes("süße")||s.includes("pulver"))return "Outro";
+ return "Outro";
+}
+function convertRecipe(r){
+ if(!r||!r.name||!Array.isArray(r.items))return null;
+ const items=r.items.map(x=>({
+  id:x.productId||x.product_id||x.id||"",
+  g:num(x.grams??x.amount??x.quantity??x.g)??0
+ })).filter(x=>x.id&&product(x.id));
+ if(!items.length)return null;
+ return {id:r.id||uid(),name:r.name,items,temperature:-20};
+}
+function exportData(type){
+ const data=type==="products"?products:recipes;
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;a.download="sanremo_"+type+"_privado.json";a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function recipeCosts(lines){
+ let total=0,missing=[];
+ for(const r of lines){
+  const p=product(r.id),c=unitCost(p);
+  if(c===null)missing.push(p?.name||r.id);
+  else total+=r.g*c/1000;
+ }
+ return {total,missing,kg:rowsTotal(lines)/1000};
+}
+function calculateCosts(){
+ const lines=current.length?current:generated;
+ if(!lines.length){
+  $("costResult").innerHTML="Primeiro cria ou abre uma receita.";return;
+ }
+ const x=recipeCosts(lines);
+ const labor=num($("labor").value),energy=num($("energy").value),
+ other=num($("other").value),loss=num($("loss").value);
+ const complete=x.missing.length===0&&labor!==null&&energy!==null&&other!==null&&loss!==null&&loss>=0&&loss<100;
+ const total=complete?x.total+labor+energy+other:null;
+ const saleKg=complete?x.kg*(1-loss/100):null;
+ const perKg=complete&&saleKg>0?total/saleKg:null;
+ const density=num($("density").value),overrun=num($("overrun").value);
+ const liters=complete&&density>0&&overrun>=0?saleKg/density*(1+overrun/100):null;
+ $("costResult").innerHTML=`
+ <div class="cards">
+ <div class="card"><small>Ingredientes</small><strong>${x.missing.length?"Incompleto":money(x.total)}</strong></div>
+ <div class="card"><small>Produção total</small><strong>${money(total)}</strong></div>
+ <div class="card"><small>Custo por kg vendável</small><strong>${money(perKg)}</strong></div>
+ <div class="card"><small>Litros estimados</small><strong>${liters===null?"Incompleto":fmt(liters)+" L"}</strong></div>
+ </div>
+ ${x.missing.length?`<div class="notice warning">Faltam preços: ${escapeHTML(x.missing.join(", "))}</div>`:""}
+ <p class="notice">Litros calculados por densidade e overrun estimados; confirma o rendimento real.</p>`;
+ lastCost={perKg,complete};
+ return lastCost;
+}
+function buildSales(){
+ $("saleInputs").innerHTML=sales.map(([id,name,w])=>`
+ <h3>${name}</h3>
+ <div class="grid">
+ ${id==="Ball"?`<div><label>Gramas por bola</label><input id="w${id}" type="number" value="${w}"></div>`:""}
+ <div><label>Embalagem / tampa / etiqueta (€)</label><input id="pack${id}" type="number" step="any"></div>
+ <div><label>Outros custos por unidade (€)</label><input id="extra${id}" type="number" step="any"></div>
+ <div><label>Preço de venda (€)</label><input id="sell${id}" type="number" step="any"></div>
+ </div>`).join("");
+}
+function calculateProfit(){
+ const c=calculateCosts();
+ const vat=num($("vat").value),mode=$("priceType").value;
+ let html=`<div class="scroll"><table>
+ <tr><th>Formato</th><th>Custo/un.</th><th>Venda sem IVA</th><th>Margem/un.</th></tr>`;
+ for(const [id,name,weight] of sales){
+  const w=id==="Ball"?num($("wBall").value):weight;
+  const pack=num($("pack"+id).value);
+  const extra=num($("extra"+id).value);
+  const sell=num($("sell"+id).value);
+  const cost=c?.perKg!==null&&w!==null&&pack!==null&&extra!==null?c.perKg*w/1000+pack+extra:null;
+  const net=sell!==null&&vat!==null&&vat>=0?
+   (mode==="gross"?sell/(1+vat/100):sell):null;
+  const margin=cost!==null&&net!==null?net-cost:null;
+  html+=`<tr><td>${name}</td><td>${money(cost)}</td>
+  <td>${money(net)}</td><td>${money(margin)}</td></tr>`;
+ }
+ html+="</table></div>";
+ $("profitResult").innerHTML=html+
+ '<p class="notice warning">Margem calculada sobre os custos introduzidos. Não equivale automaticamente a lucro líquido contabilístico.</p>';
+}
+refreshSelects();
+buildSales();
+renderProducts();
+generate();
 </script>
 </body>
 </html>
