@@ -3,851 +3,916 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sanremo Gelato Lab</title>
 <style>
-:root {
-  --green:#126b58;
-  --dark:#143e38;
-  --light:#e4f0ec;
-  --bg:#f3f6f5;
-  --red:#a63232;
+:root{
+ --dark:#102f2d;
+ --green:#087c69;
+ --gold:#c59a54;
+ --cream:#f7f5ef;
+ --line:#e2e7e4;
+ --text:#243333;
+ --muted:#687c78;
 }
-* {box-sizing:border-box}
-body {
-  margin:0;
-  background:var(--bg);
-  color:#223137;
-  font-family:Arial,sans-serif;
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:var(--cream);
+ color:var(--text);
 }
-header {
-  background:var(--dark);
-  color:white;
-  padding:25px 15px;
-  text-align:center;
+header{
+ background:var(--dark);
+ color:white;
+ padding:24px;
 }
-header h1 {margin:0;font-size:28px}
-header p {color:#c4ded7}
-main {max-width:1050px;margin:auto;padding:12px}
-nav {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-  margin:15px 0;
+header h1{margin:0;font-size:28px}
+header p{color:#c5ddd5;margin-bottom:0}
+.layout{
+ display:grid;
+ grid-template-columns:230px minmax(0,1fr);
+ min-height:85vh;
 }
-button {
-  border:0;
-  padding:12px;
-  border-radius:9px;
-  background:var(--light);
-  color:var(--green);
-  font-weight:bold;
-  cursor:pointer;
+aside{
+ background:#173e38;
+ padding:18px;
 }
-button.primary,button.active {
-  background:var(--green);
-  color:white;
+nav button{
+ display:block;
+ width:100%;
+ text-align:left;
+ background:transparent;
+ color:white;
+ margin-bottom:8px;
 }
-button.danger {background:#f8e4e4;color:var(--red)}
-.panel {
-  background:white;
-  padding:20px;
-  border-radius:14px;
-  margin-bottom:15px;
-  box-shadow:0 2px 9px #0000000a;
+nav button.active{background:var(--green)}
+main{padding:25px;max-width:1200px;width:100%}
+.panel{
+ background:white;
+ border:1px solid var(--line);
+ border-radius:16px;
+ padding:22px;
+ margin-bottom:18px;
+ box-shadow:0 3px 15px #00000008;
 }
-.hidden {display:none}
-.grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
+h2{margin-top:0}
+h3{margin-bottom:12px}
+label{
+ display:block;
+ font-weight:bold;
+ font-size:13px;
+ margin:12px 0 6px;
 }
-label {display:block;margin:12px 0 5px;font-weight:bold}
-input,select {
-  width:100%;
-  padding:11px;
-  border:1px solid #ccd7d3;
-  border-radius:8px;
-  font-size:16px;
-  background:white;
+input,select,textarea{
+ width:100%;
+ padding:12px;
+ border:1px solid #cbd8d3;
+ border-radius:9px;
+ background:white;
+ font:inherit;
+ min-width:0;
 }
 input[type=checkbox]{width:auto}
-.actions {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin:15px 0;
+button{
+ background:#e5f0ec;
+ color:#155d50;
+ border:0;
+ border-radius:9px;
+ padding:12px 15px;
+ cursor:pointer;
+ font-weight:bold;
 }
-table {width:100%;border-collapse:collapse;font-size:14px}
-td,th {
-  padding:9px;
-  border-bottom:1px solid #dce5e2;
-  text-align:left;
+button.primary{
+ background:var(--green);
+ color:white;
 }
-.scroll {overflow-x:auto}
-.notice {
-  background:#edf5f2;
-  padding:13px;
-  border-radius:9px;
-  margin:12px 0;
-  line-height:1.5;
+button.danger{
+ background:#ffe9e7;
+ color:#9d302b;
 }
-.warning {background:#fff0d8}
-.error {background:#ffe7e7}
-.good {background:#e1f4e8}
-.cards {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:9px;
-  margin:12px 0;
+button:hover{filter:brightness(.96)}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:15px;
 }
-.card {background:#eef3f1;padding:14px;border-radius:9px}
-.card small {display:block;color:#5d746e}
-.card strong {font-size:22px}
-.product {
-  padding:12px;
-  border:1px solid #dfe8e4;
-  border-radius:9px;
-  margin:8px 0;
+.grid3{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:12px;
 }
-.product button{margin-top:7px}
-.recipe-line {
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 110px 40px;
-  gap:6px;
-  margin:8px 0;
+.actions{
+ display:flex;
+ flex-wrap:wrap;
+ gap:9px;
+ margin:16px 0;
 }
-.recipe-line select,.recipe-line input {font-size:14px}
-footer {text-align:center;padding:20px;color:#687a75}
-@media(max-width:500px){
-  .panel{padding:13px}
-  .grid{grid-template-columns:1fr}
-  .cards{grid-template-columns:repeat(2,1fr)}
-  .recipe-line{grid-template-columns:minmax(0,1fr) 85px 36px}
-  td,th{padding:6px}
+.hidden{display:none!important}
+.notice{
+ background:#eaf3ef;
+ padding:14px;
+ border-radius:10px;
+ line-height:1.5;
+ margin:12px 0;
 }
-@media print {
-  nav,.actions,button,header .warning{display:none!important}
-  .panel {box-shadow:none;border:1px solid #ddd}
+.warn{background:#fff0d6}
+.bad{background:#ffe6e6}
+.good{background:#e1f5e8}
+.tablewrap{overflow-x:auto}
+table{
+ width:100%;
+ border-collapse:collapse;
+ min-width:500px;
+}
+th,td{
+ padding:10px;
+ border-bottom:1px solid var(--line);
+ text-align:left;
+ font-size:14px;
+}
+.cards{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:10px;
+ margin:15px 0;
+}
+.card{
+ background:#eef4f1;
+ border-radius:12px;
+ padding:15px;
+}
+.card small{display:block;color:var(--muted)}
+.card strong{font-size:22px}
+.item{
+ padding:15px;
+ border:1px solid var(--line);
+ border-radius:11px;
+ margin:10px 0;
+}
+.itemrow{
+ display:grid;
+ grid-template-columns:minmax(0,1fr) 110px 45px;
+ gap:8px;
+ margin:8px 0;
+}
+small,.muted{color:var(--muted)}
+footer{text-align:center;padding:20px;color:var(--muted)}
+@media(max-width:800px){
+ .layout{display:block}
+ aside{padding:10px}
+ nav{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+ nav button{margin:0}
+ main{padding:10px}
+ .panel{padding:15px}
+ .grid,.grid3{grid-template-columns:1fr}
+ .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .itemrow{grid-template-columns:minmax(0,1fr) 80px 40px}
+ header h1{font-size:23px}
+}
+@media print{
+ aside,button,header,.actions{display:none!important}
+ .panel{box-shadow:none}
 }
 </style>
 </head>
 <body>
 
 <header>
-<h1>🍨 Sanremo Gelato Lab</h1>
-<p>Formulação • Receitas • Produtos • Custos • Rentabilidade</p>
+<h1>🍨 SANREMO GELATO LAB</h1>
+<p>Formulação profissional • Produtos • Receitas • Custos</p>
 </header>
 
-<main>
-<div class="notice warning">
-<b>Aviso:</b> os cálculos técnicos são estimativas.
-Uma receita não é certificada como perfeita ou segura
-apenas por atingir objetivos matemáticos.
-Os dados são guardados neste navegador.
-Não publiques o teu backup privado no GitHub.
-</div>
-
+<div class="layout">
+<aside>
 <nav>
-<button class="active" onclick="tab('create',this)">1. Criar receita</button>
-<button onclick="tab('analyze',this)">2. Analisar / corrigir</button>
-<button onclick="tab('products',this)">3. Produtos</button>
-<button onclick="tab('saved',this)">4. Receitas privadas</button>
-<button onclick="tab('costs',this)">5. Custos</button>
-<button onclick="tab('profit',this)">6. Rentabilidade</button>
+<button class="active" onclick="tab('home',this)">⌂ Painel inicial</button>
+<button onclick="tab('products',this)">▣ Produtos</button>
+<button onclick="tab('recipe',this)">◈ Criar receita</button>
+<button onclick="tab('analysis',this)">◎ Analisar / corrigir</button>
+<button onclick="tab('saved',this)">▤ Receitas guardadas</button>
+<button onclick="tab('costs',this)">€ Custos e vendas</button>
 </nav>
+</aside>
 
-<section id="create" class="panel">
-<h2>Criar gelado do zero</h2>
-<div class="grid">
-<div><label>Fruta ou fruto seco</label><select id="flavor"></select></div>
-<div>
-<label>Base</label>
-<select id="base">
-<option value="water">Água — sorbet</option>
-<option value="milk">Leite — gelado de leite</option>
-</select>
+<main>
+
+<section id="home" class="panel">
+<h2>Painel de controlo</h2>
+<div class="cards">
+<div class="card"><small>Produtos</small><strong id="countProducts">0</strong></div>
+<div class="card"><small>Receitas</small><strong id="countRecipes">0</strong></div>
+<div class="card"><small>Receita atual</small><strong id="currentWeight">0 g</strong></div>
 </div>
-<div>
-<label>Quantidade (kg)</label>
-<input id="batch" type="number" min="1" max="6" step="0.1" value="6">
-</div>
-<div>
-<label>Temperatura de serviço (°C)</label>
-<input id="temperature" type="number" min="-24" max="-12" step="1" value="-20">
-</div>
+<div class="notice">
+O programa começa com a biblioteca vazia.
+Adiciona os produtos que utilizas, preenche os dados
+técnicos e os preços, e constrói as tuas receitas.
+Os dados são guardados neste navegador.
 </div>
 <div class="actions">
-<button class="primary" onclick="generate()">Gerar receita</button>
-<button onclick="openGenerated()">Abrir no analisador</button>
+<button class="primary" onclick="tab('products')">Adicionar produtos</button>
+<button onclick="tab('recipe')">Criar receita</button>
 </div>
-<div id="generated"></div>
-</section>
-
-<section id="analyze" class="panel hidden">
-<h2>Analisar e corrigir receita</h2>
-<label>Nome</label>
-<input id="recipeName" value="Receita Sanremo">
-<div class="grid">
-<div>
-<label>Peso final pretendido (kg)</label>
-<input id="targetKg" type="number" min="1" max="6" step="0.1" value="6">
+<div class="notice warn">
+A validação matemática não substitui testes de textura,
+segurança alimentar, higiene e conservação.
 </div>
-<div>
-<label>Temperatura (°C)</label>
-<input id="targetTemp" type="number" min="-24" max="-12" value="-20">
-</div>
-</div>
-<div id="recipeLines"></div>
-<div class="grid">
-<div>
-<label>Adicionar ingrediente</label>
-<select id="addIngredient"></select>
-</div>
-<div style="align-self:end">
-<button onclick="addLine()">+ Adicionar</button>
-</div>
-</div>
-<div class="actions">
-<button class="primary" onclick="analyze()">Analisar</button>
-<button onclick="correct()">Corrigir automaticamente</button>
-<button onclick="saveRecipe()">Guardar receita</button>
-<button onclick="window.print()">Imprimir</button>
-</div>
-<div id="analysisResult"></div>
 </section>
 
 <section id="products" class="panel hidden">
 <h2>Biblioteca de produtos</h2>
-<p class="notice">
-Podes adicionar qualquer matéria-prima e indicar o preço
-do saco, lata, balde ou embalagem. O programa calcula €/kg.
-Para produtos líquidos, indica também a densidade.
-</p>
-<input id="productSearch" placeholder="Procurar produto..." oninput="renderProducts()">
-<div id="productList"></div>
+<p>Regista qualquer ingrediente, a sua composição e o preço de compra.</p>
 <div class="actions">
-<button class="primary" onclick="newProduct()">+ Novo produto</button>
-<button onclick="exportData('products')">Exportar produtos</button>
+<button class="primary" onclick="newProduct()">+ Adicionar produto</button>
+<button onclick="exportBackup()">Exportar backup completo</button>
 </div>
+<input id="searchProduct" placeholder="Procurar produto..." oninput="renderProducts()">
+<div id="productList"></div>
 
 <div id="productForm" class="hidden">
-<h3>Adicionar / editar produto</h3>
-<input id="productId" type="hidden">
-<label>Nome do produto</label><input id="pName">
+<h3>Ficha do produto</h3>
+<input type="hidden" id="pid">
+<label>Nome do produto</label>
+<input id="pname" placeholder="Ex.: H-Milch 3,5%">
 <label>Categoria</label>
-<select id="pCategory">
-<option>Fruta</option><option>Fruto seco</option>
-<option>Leite</option><option>Açúcar</option>
-<option>Estabilizante</option><option>Pasta</option>
+<select id="pcategory">
+<option>Leite</option>
+<option>Natas</option>
+<option>Fruta</option>
+<option>Fruto seco</option>
+<option>Açúcar</option>
+<option>Pó</option>
+<option>Pasta</option>
+<option>Estabilizante</option>
 <option>Outro</option>
 </select>
-<div class="grid">
-<div><label>Gordura (%)</label><input id="pFat" type="number" step="any"></div>
-<div><label>Proteína (%)</label><input id="pProtein" type="number" step="any"></div>
-<div><label>Hidratos (%)</label><input id="pCarb" type="number" step="any"></div>
-<div><label>Açúcares (%)</label><input id="pSugar" type="number" step="any"></div>
-<div><label>Água (%)</label><input id="pWater" type="number" step="any"></div>
-<div><label>PAC relativo</label><input id="pPac" type="number" step="any"></div>
-<div><label>POD relativo</label><input id="pPod" type="number" step="any"></div>
-<div><label>Dosagem máxima (g/kg)</label><input id="pMax" type="number" step="any"></div>
+
+<h3>Composição por 100 g</h3>
+<div class="grid3">
+<div><label>Gordura (%)</label><input id="pfat" type="number" step="any"></div>
+<div><label>Gordura saturada (%)</label><input id="psat" type="number" step="any"></div>
+<div><label>Proteínas (%)</label><input id="pprotein" type="number" step="any"></div>
+<div><label>Hidratos (%)</label><input id="pcarb" type="number" step="any"></div>
+<div><label>Açúcares (%)</label><input id="psugar" type="number" step="any"></div>
+<div><label>Água (%)</label><input id="pwater" type="number" step="any"></div>
+<div><label>Energia kJ/100 g</label><input id="pkj" type="number" step="any"></div>
+<div><label>Sal (g/100 g)</label><input id="psalt" type="number" step="any"></div>
+<div><label>PAC relativo por 100 g</label><input id="ppac" type="number" step="any"></div>
+<div><label>POD relativo por 100 g</label><input id="ppod" type="number" step="any"></div>
+<div><label>Máximo g/kg</label><input id="pmax" type="number" step="any"></div>
 </div>
-<h3>Preço de compra</h3>
-<div class="grid">
-<div><label>Preço total (€)</label><input id="pPrice" type="number" step="any"></div>
-<div><label>Quantidade na embalagem</label><input id="pSize" type="number" step="any"></div>
+
+<h3>Compra e embalagem</h3>
+<div class="grid3">
+<div><label>Preço total (€)</label><input id="pprice" type="number" step="any"></div>
+<div><label>Quantidade da embalagem</label><input id="psize" type="number" step="any"></div>
 <div>
 <label>Unidade</label>
-<select id="pUnit"><option>kg</option><option>g</option><option>L</option><option>ml</option></select>
+<select id="punit">
+<option value="kg">kg</option>
+<option value="g">g</option>
+<option value="L">litros</option>
+<option value="ml">ml</option>
+</select>
 </div>
-<div><label>Densidade kg/L</label><input id="pDensity" type="number" step="any"></div>
+<div><label>Densidade kg/L (líquidos)</label><input id="pdensity" type="number" step="any"></div>
 </div>
-<label>Alérgenos</label><input id="pAllergens">
-<label><input id="pVerified" type="checkbox"> Dados confirmados pela ficha técnica</label>
+<div class="notice" id="pricePreview">Introduz preço e quantidade.</div>
+
+<label>Alergénios</label>
+<input id="pallergens" placeholder="Ex.: MILCH, SOJA">
+<label>Observações / fornecedor</label>
+<textarea id="pnotes" rows="2"></textarea>
+<label><input type="checkbox" id="pverified"> Dados confirmados com a ficha técnica</label>
+
 <div class="actions">
 <button class="primary" onclick="saveProduct()">Guardar produto</button>
-<button onclick="document.getElementById('productForm').classList.add('hidden')">Cancelar</button>
+<button onclick="hideProductForm()">Cancelar</button>
 </div>
 </div>
+</section>
+
+<section id="recipe" class="panel hidden">
+<h2>Criar receita do zero</h2>
+<label>Nome da receita</label>
+<input id="rname" value="Nova receita">
+<div class="grid">
+<div>
+<label>Tipo de gelado</label>
+<select id="rtype">
+<option value="milk">Gelado de leite</option>
+<option value="sorbet">Sorbet de água</option>
+<option value="custom">Formulação livre</option>
+</select>
+</div>
+<div>
+<label>Temperatura de serviço (°C)</label>
+<input id="rtemp" type="number" min="-24" max="-12" value="-20">
+</div>
+<div>
+<label>Quantidade pretendida (kg)</label>
+<input id="rkg" type="number" min="1" max="6" step="0.1" value="6">
+</div>
+</div>
+
+<h3>Ingredientes escolhidos</h3>
+<div id="recipeRows"></div>
+<label>Adicionar produto da biblioteca</label>
+<div class="grid">
+<select id="ingredientSelect"></select>
+<button onclick="addIngredient()">+ Adicionar ingrediente</button>
+</div>
+
+<div class="actions">
+<button class="primary" onclick="scaleRecipe()">Ajustar peso automaticamente</button>
+<button onclick="checkRecipe()">Verificar receita</button>
+<button onclick="saveRecipe()">Guardar receita</button>
+<button onclick="tab('analysis')">Analisar / corrigir</button>
+</div>
+<div id="recipeResult"></div>
+</section>
+
+<section id="analysis" class="panel hidden">
+<h2>Análise técnica e correção</h2>
+<p>O programa analisa a receita atual e procura ajustar as quantidades dos ingredientes existentes.</p>
+
+<div class="grid3">
+<div><label>Açúcares alvo (%)</label><input id="goalSugar" type="number" value="20" step="any"></div>
+<div><label>Sólidos alvo (%)</label><input id="goalSolids" type="number" value="38" step="any"></div>
+<div><label>Gordura alvo (%)</label><input id="goalFat" type="number" value="8" step="any"></div>
+<div><label>PAC alvo (opcional)</label><input id="goalPac" type="number" step="any"></div>
+<div><label>POD alvo (opcional)</label><input id="goalPod" type="number" step="any"></div>
+</div>
+
+<label><input id="protectFlavor" type="checkbox" checked>
+Proteger quantidades de frutas, frutos secos e pastas</label>
+
+<div class="actions">
+<button class="primary" onclick="checkRecipe()">Analisar receita</button>
+<button onclick="optimizeRecipe()">Corrigir automaticamente</button>
+<button onclick="applyProposal()">Aplicar correção</button>
+</div>
+<div id="analysisResult"></div>
 </section>
 
 <section id="saved" class="panel hidden">
-<h2>Receitas privadas</h2>
-<p class="notice">
-Importa o backup Sanremo em JSON. Produtos e receitas
-ficam neste navegador, não dentro do HTML público.
-</p>
-<label>Importar backup</label>
-<input type="file" id="backupFile" accept=".json" onchange="importBackup(event)">
+<h2>Receitas guardadas</h2>
 <div class="actions">
-<button onclick="exportData('recipes')">Exportar receitas</button>
-<button onclick="auditAll()">Auditar todas</button>
+<button onclick="exportBackup()">Exportar backup</button>
+<button onclick="document.getElementById('importFile').click()">Importar backup deste programa</button>
+<input id="importFile" type="file" accept=".json" hidden onchange="importBackup(event)">
+</div>
+<div class="notice warn">
+Os dados são guardados no navegador.
+Exporta regularmente um backup.
+Não publiques receitas privadas num repositório público.
 </div>
 <div id="savedList"></div>
-<div id="auditAllResult"></div>
 </section>
 
 <section id="costs" class="panel hidden">
-<h2>Custo de produção</h2>
-<div id="costSummary"></div>
-<div class="grid">
-<div><label>Mão de obra / lote (€)</label><input id="labor" type="number" step="any"></div>
-<div><label>Eletricidade / lote (€)</label><input id="energy" type="number" step="any"></div>
-<div><label>Outros custos / lote (€)</label><input id="other" type="number" step="any"></div>
-<div><label>Perdas de produção (%)</label><input id="loss" type="number" min="0" max="99" value="0"></div>
-<div><label>Densidade da mistura (kg/L)</label><input id="density" type="number" step="any" value="1.05"></div>
-<div><label>Ar incorporado — overrun (%)</label><input id="overrun" type="number" step="any" value="30"></div>
+<h2>Custos e rentabilidade</h2>
+<h3>Custos de produção por lote</h3>
+<div class="grid3">
+<div><label>Mão de obra (€)</label><input id="labor" type="number" step="any"></div>
+<div><label>Eletricidade (€)</label><input id="energy" type="number" step="any"></div>
+<div><label>Outros custos (€)</label><input id="otherCost" type="number" step="any"></div>
+<div><label>Perdas (%)</label><input id="loss" type="number" value="0" min="0" max="99" step="any"></div>
+<div><label>Densidade kg/L</label><input id="mixDensity" type="number" step="any"></div>
+<div><label>Overrun (%)</label><input id="overrun" type="number" step="any"></div>
 </div>
-<div class="actions"><button class="primary" onclick="calculateCosts()">Calcular custos</button></div>
-<div id="costResult"></div>
-</section>
 
-<section id="profit" class="panel hidden">
-<h2>Rentabilidade das vendas</h2>
-<p class="notice">
-Introduz o preço recebido pelo Sanremo.
-Para o supermercado, usa o preço faturado ao REWE,
-não o preço da prateleira.
-</p>
-<div class="grid">
-<div><label>IVA da venda (%)</label><input id="vat" type="number" value="7"></div>
-<div><label>Preço introduzido</label>
-<select id="priceType"><option value="gross">Com IVA</option><option value="net">Sem IVA</option></select></div>
+<h3>Preços e embalagens de venda</h3>
+<div class="grid3">
+<div><label>Gramas por bola</label><input id="ballWeight" type="number" value="70"></div>
+<div><label>IVA (%)</label><input id="vat" type="number" value="7"></div>
+<div>
+<label>Preços introduzidos</label>
+<select id="priceMode">
+<option value="gross">Com IVA</option>
+<option value="net">Sem IVA</option>
+</select>
 </div>
-<div id="saleInputs"></div>
-<div class="actions"><button class="primary" onclick="calculateProfit()">Calcular rentabilidade</button></div>
-<div id="profitResult"></div>
+</div>
+
+<div id="salesFields"></div>
+<div class="actions">
+<button class="primary" onclick="calculateCosts()">Calcular custos e lucros</button>
+</div>
+<div id="costResults"></div>
 </section>
 
 </main>
-<footer>Sanremo Gelato Lab • Dados locais • Fazer backups regularmente</footer>
+</div>
+<footer>Sanremo Gelato Lab • Formulação e gestão de produção</footer>
 
 <script>
 "use strict";
+
 const $=id=>document.getElementById(id);
-const num=v=>{
- if(v===null||v===undefined||String(v).trim()==="")return null;
- const x=Number(String(v).replace(",","."));
- return Number.isFinite(x)?x:null;
+const fmt=n=>Number(n).toLocaleString("pt-PT",{maximumFractionDigits:2});
+const euro=n=>n===null?"Incompleto":Number(n).toLocaleString("pt-PT",{style:"currency",currency:"EUR"});
+
+// FIX: Melhorada a substituição de vírgulas para evitar erros de parsing em inputs numéricos
+const val=id=>{
+ const el=$(id);
+ if(!el)return null;
+ const s=el.value.trim();
+ if(s==="")return null;
+ const n=Number(s.replace(/,/g,"."));
+ return Number.isFinite(n)?n:null;
 };
-const money=x=>x===null?"Incompleto":x.toLocaleString("pt-PT",{style:"currency",currency:"EUR"});
-const fmt=(x,n=2)=>Number(x).toLocaleString("pt-PT",{maximumFractionDigits:n});
-const escapeHTML=s=>String(s??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
-const clone=x=>JSON.parse(JSON.stringify(x));
-const uid=()=>crypto.randomUUID?crypto.randomUUID():"p"+Date.now()+Math.random();
 
-let products=JSON.parse(localStorage.getItem("sanremoProducts")||"null")||[
- {id:"water",name:"Água",category:"Outro",fat:0,protein:0,carb:0,sugar:0,water:100,pac:0,pod:0,price:0,verified:true},
- {id:"milk",name:"Leite inteiro",category:"Leite",fat:3.5,protein:3.3,carb:4.8,sugar:4.8,water:87.5,pac:null,pod:null,verified:false},
- {id:"cream",name:"Natas 35%",category:"Leite",fat:35,protein:2.3,carb:3.4,sugar:3.4,water:59,pac:null,pod:null,verified:false},
- {id:"sugar",name:"Açúcar sacarose",category:"Açúcar",fat:0,protein:0,carb:100,sugar:100,water:0,pac:100,pod:100,verified:true},
- {id:"dextrose",name:"Dextrose anidra",category:"Açúcar",fat:0,protein:0,carb:100,sugar:100,water:0,pac:190,pod:70,verified:false},
- {id:"powder",name:"Leite em pó magro",category:"Leite",fat:0.8,protein:35,carb:52,sugar:52,water:4,pac:null,pod:null,verified:false},
- {id:"strawberry",name:"Morango",category:"Fruta",fat:0.4,protein:0.6,carb:7.7,sugar:4.9,water:90,pac:null,pod:null,verified:false},
- {id:"raspberry",name:"Framboesa",category:"Fruta",fat:0.5,protein:1.5,carb:5.4,sugar:5.4,water:86,pac:null,pod:null,verified:false},
- {id:"mango",name:"Manga",category:"Fruta",fat:0.4,protein:0.8,carb:15,sugar:14,water:83,pac:null,pod:null,verified:false},
- {id:"banana",name:"Banana",category:"Fruta",fat:0.3,protein:1.1,carb:20,sugar:12,water:75,pac:null,pod:null,verified:false},
- {id:"lemon",name:"Limão",category:"Fruta",fat:0.3,protein:1.1,carb:9,sugar:2.5,water:89,pac:null,pod:null,verified:false},
- {id:"hazelnut",name:"Pasta avelã 100%",category:"Fruto seco",fat:66,protein:15,carb:7,sugar:4,water:3,pac:null,pod:null,verified:false},
- {id:"pistachio",name:"Pasta pistácio 100% (exemplo)",category:"Fruto seco",fat:45,protein:20,carb:27,sugar:8,water:4,pac:null,pod:null,verified:false},
- {id:"stabilizer",name:"Estabilizante neutro genérico",category:"Estabilizante",fat:0,protein:0,carb:95,sugar:0,water:5,pac:null,pod:null,max:4,verified:false}
-];
-let recipes=JSON.parse(localStorage.getItem("sanremoRecipes")||"[]");
-let current=[];
-let generated=[];
-let lastCost=null;
+const esc=s=>String(s??"")
+ .replaceAll("&","&amp;")
+ .replaceAll("<","&lt;")
+ .replaceAll(">","&gt;")
+ .replaceAll('"',"&quot;");
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2);
+const copy=x=>JSON.parse(JSON.stringify(x));
 
-const sales=[
- ["Bola","Bola na gelataria",70],
- ["Kg","Venda por kg",1000],
- ["170","Supermercado 170 g",170],
- ["750","Supermercado 750 g",750]
-];
+const KEY="sanremo_professional_empty_v1";
+let db;
+try{
+ db=JSON.parse(localStorage.getItem(KEY))||{};
+}catch(e){db={};}
+let products=Array.isArray(db.products)?db.products:[];
+let recipes=Array.isArray(db.recipes)?db.recipes:[];
+let lines=Array.isArray(db.lines)?db.lines:[];
+let proposal=null;
 
 function persist(){
  try{
-  localStorage.setItem("sanremoProducts",JSON.stringify(products));
-  localStorage.setItem("sanremoRecipes",JSON.stringify(recipes));
- }catch(e){alert("Armazenamento cheio. Exporta um backup.");}
+  localStorage.setItem(KEY,JSON.stringify({products,recipes,lines}));
+ }catch(e){
+  alert("Erro ao guardar. Exporta um backup.");
+ }
+ updateCount();
 }
-function product(id){return products.find(x=>x.id===id)}
-function tab(id,button){
- document.querySelectorAll(".panel").forEach(x=>x.classList.add("hidden"));
+function updateCount(){
+ $("countProducts").textContent=products.length;
+ $("countRecipes").textContent=recipes.length;
+ $("currentWeight").textContent=fmt(totalWeight())+" g";
+}
+
+// FIX: Melhorada a lógica de encontrar o botão ativo para não depender de includes exatos
+function tab(id,btn){
+ document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
  $(id).classList.remove("hidden");
- document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
- if(button)button.classList.add("active");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ if(!btn)btn=document.querySelector(`nav button[onclick*="'${id}'"]`);
+ if(btn)btn.classList.add("active");
  if(id==="products")renderProducts();
  if(id==="saved")renderSaved();
+ if(id==="analysis")checkRecipe();
  if(id==="costs")calculateCosts();
- if(id==="profit")calculateProfit();
 }
-function showTab(id){
- const b=[...document.querySelectorAll("nav button")].find(x=>x.getAttribute("onclick")?.includes("'"+id+"'"));
- tab(id,b);
-}
-function refreshSelects(){
- const opts=products.map(p=>`<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)}</option>`).join("");
- $("addIngredient").innerHTML=opts;
- const flavors=products.filter(p=>["Fruta","Fruto seco"].includes(p.category));
- $("flavor").innerHTML=flavors.map(p=>`<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)}</option>`).join("");
-}
-function rowsTotal(lines){return lines.reduce((s,r)=>s+Number(r.g||0),0)}
-function scale(lines,target){
- let t=rowsTotal(lines);
- if(t<=0)return [];
- let out=lines.map(x=>({...x,g:Math.round(x.g*target/t)}));
- let delta=target-rowsTotal(out);
- if(out.length)out[0].g+=delta;
- return out;
-}
-function generate(){
- const id=$("flavor").value;
- const p=product(id);
- if(!p)return;
- const kg=num($("batch").value),temp=num($("temperature").value);
- if(kg===null||kg<1||kg>6||temp===null||temp< -24||temp> -12){
-  alert("Escolhe 1 a 6 kg e uma temperatura entre -24 e -12 °C.");return;
- }
- const total=Math.round(kg*1000);
- const dairy=$("base").value==="milk";
- const fruit=p.category==="Fruta";
- const pct=fruit?(dairy?0.30:0.45):0.09;
- let lines=[
-  {id:dairy?"milk":"water",g:Math.round(total*(dairy?0.54:0.34))},
-  {id:p.id,g:Math.round(total*pct)},
-  {id:"sugar",g:Math.round(total*(dairy?0.10:0.14))},
-  {id:"dextrose",g:Math.round(total*(dairy?0.055:0.08))}
- ];
- if(dairy){
-  lines.push({id:"cream",g:Math.round(total*0.04)});
-  lines.push({id:"powder",g:Math.round(total*0.055)});
- }
- lines.push({id:"stabilizer",g:Math.round(total*0.003)});
- let sum=rowsTotal(lines);
- lines[0].g+=total-sum;
- if(lines[0].g<0){
-  $("generated").innerHTML='<div class="notice error">Não foi possível construir uma formulação inicial com estes parâmetros.</div>';
-  generated=[];return;
- }
- generated=lines;
- const result=calculate(lines);
- $("generated").innerHTML=`
- <h3>Formulação inicial: ${escapeHTML(p.name)}</h3>
- <div class="notice warning">
- Receita experimental. As percentagens iniciais não foram validadas para este fruto,
- esta base ou a temperatura escolhida. Verifica o diagnóstico antes da produção.
- </div>${recipeTable(lines)}
- ${metricCards(result)}
- `;
-}
-function recipeTable(lines){
- return `<div class="scroll"><table>
- <tr><th>Ingrediente</th><th>Quantidade</th><th>Custo</th></tr>
- ${lines.map(r=>{
- const p=product(r.id);
- const price=unitCost(p);
- return `<tr><td>${escapeHTML(p?.name||r.id)}</td>
- <td>${fmt(r.g,0)} g</td>
- <td>${money(price===null?null:price*r.g/1000)}</td></tr>`;
- }).join("")}
- <tr><th>Total</th><th>${fmt(rowsTotal(lines),0)} g</th><th></th></tr>
- </table></div>`;
-}
-function openGenerated(){
- if(!generated.length)generate();
- if(!generated.length)return;
- current=clone(generated);
- $("recipeName").value=$("flavor").selectedOptions[0]?.text||"Nova receita";
- $("targetKg").value=rowsTotal(current)/1000;
- $("targetTemp").value=$("temperature").value;
- renderLines();$("analysisResult").innerHTML="";
- showTab("analyze");
-}
-function renderLines(){
- $("recipeLines").innerHTML=current.map((r,i)=>`
- <div class="recipe-line">
- <select onchange="changeLine(${i},'id',this.value)">
- ${products.map(p=>`<option value="${escapeHTML(p.id)}" ${p.id===r.id?"selected":""}>${escapeHTML(p.name)}</option>`).join("")}
- </select>
- <input type="number" min="0" step="1" value="${r.g}" onchange="changeLine(${i},'g',this.value)">
- <button class="danger" onclick="removeLine(${i})">×</button>
- </div>`).join("");
-}
-function changeLine(i,key,value){
- if(!current[i])return;
- current[i][key]=key==="g"?Math.max(0,num(value)||0):value;
-}
-function removeLine(i){current.splice(i,1);renderLines()}
-function addLine(){
- current.push({id:$("addIngredient").value,g:0});
- renderLines();
-}
-function calculate(lines){
- const total=rowsTotal(lines);
- if(total<=0)return null;
- let fat=0,protein=0,sugar=0,carb=0,water=0,pac=0,pod=0;
- let completePAC=true,completePOD=true,completeWater=true;
- let verified=true,issues=[],warnings=[];
- let ingredientsCost=0,costComplete=true;
- for(const r of lines){
-  const p=product(r.id);
-  if(!p){issues.push("Ingrediente desconhecido: "+r.id);continue;}
-  if(r.g<0||!Number.isFinite(r.g)){issues.push("Quantidade inválida: "+p.name);continue;}
-  const f=r.g/total;
-  fat+=f*(num(p.fat)||0);
-  protein+=f*(num(p.protein)||0);
-  sugar+=f*(num(p.sugar)||0);
-  carb+=f*(num(p.carb)||0);
-  if(p.water===null||p.water===undefined)completeWater=false;
-  else water+=f*Number(p.water);
-  if(p.pac===null||p.pac===undefined)completePAC=false;
-  else pac+=f*Number(p.pac);
-  if(p.pod===null||p.pod===undefined)completePOD=false;
-  else pod+=f*Number(p.pod);
-  if(!p.verified)verified=false;
-  const max=num(p.max);
-  if(max!==null&&r.g/total*1000>max+0.001)
-   issues.push(p.name+": dosagem acima do máximo registado.");
-  const cost=unitCost(p);
-  if(cost===null)costComplete=false;
-  else ingredientsCost+=r.g/1000*cost;
-  if((num(p.fat)||0)+(num(p.protein)||0)+(num(p.carb)||0)>101)
-   issues.push(p.name+": composição nutricional incoerente.");
-  if(num(p.sugar)!==null&&num(p.carb)!==null&&Number(p.sugar)>Number(p.carb)+0.1)
-   issues.push(p.name+": açúcares acima dos hidratos de carbono.");
- }
- if(!verified)warnings.push("Existem ingredientes sem ficha técnica confirmada.");
- if(!completePAC)warnings.push("PAC incompleto: faltam propriedades de alguns ingredientes.");
- if(!completePOD)warnings.push("POD incompleto: faltam propriedades de alguns ingredientes.");
- if(!completeWater)warnings.push("Teor de água incompleto.");
- if(!costComplete)warnings.push("Faltam preços de compra.");
- return {total,fat,protein,sugar,carb,water:completeWater?water:null,
- solids:completeWater?100-water:null,
- pac:completePAC?pac:null,pod:completePOD?pod:null,
- ingredientsCost:costComplete?ingredientsCost:null,
- issues,warnings,verified};
-}
-function metricCards(r){
- if(!r)return "";
- return `<div class="cards">
- ${[
- ["Peso",fmt(r.total,0)+" g"],
- ["Gordura",fmt(r.fat)+"%"],
- ["Proteínas",fmt(r.protein)+"%"],
- ["Açúcares",fmt(r.sugar)+"%"],
- ["Sólidos",r.solids===null?"Incompleto":fmt(r.solids)+"%"],
- ["PAC relativo",r.pac===null?"Incompleto":fmt(r.pac)],
- ["POD relativo",r.pod===null?"Incompleto":fmt(r.pod)],
- ["Ingredientes",money(r.ingredientsCost)]
- ].map(x=>`<div class="card"><small>${x[0]}</small><strong>${x[1]}</strong></div>`).join("")}
- </div>`;
-}
-function auditHTML(r){
- if(!r)return '<div class="notice error">Receita vazia.</div>';
- let state=r.issues.length?"Erros detetados":
- r.warnings.length?"Dados insuficientes":"Sem alertas nos dados registados";
- return `<div class="notice ${r.issues.length?"error":"warning"}">
- <b>${state}</b><br>
- ${r.issues.map(escapeHTML).join("<br>")}
- ${r.warnings.map(escapeHTML).join("<br>")}
- <p>Este resultado não certifica textura, estabilidade, segurança alimentar nem equilíbrio perfeito.</p>
- </div>`;
-}
-function analyze(){
- if(!current.length){alert("Adiciona ingredientes.");return;}
- const r=calculate(current);
- const t=num($("targetKg").value);
- const tTemp=num($("targetTemp").value);
- let note="";
- if(t!==null&&Math.abs(r.total-t*1000)>0.1)
-  note='<div class="notice warning">O peso da receita é diferente do peso pretendido.</div>';
- if(tTemp===null||tTemp< -24||tTemp> -12)
-  note+='<div class="notice error">Temperatura fora do intervalo permitido.</div>';
- $("analysisResult").innerHTML=note+auditHTML(r)+metricCards(r)+recipeTable(current);
- lastCost=null;
-}
-function correct(){
- const kg=num($("targetKg").value);
- if(kg===null||kg<1||kg>6)return alert("Escolhe entre 1 e 6 kg.");
- if(!current.length)return alert("Adiciona primeiro os ingredientes.");
- const proposed=scale(current,Math.round(kg*1000));
- if(!proposed.length)return alert("Receita vazia.");
- const issues=calculate(proposed);
- $("analysisResult").innerHTML=`
- <h3>Proposta de correção</h3>
- <div class="notice warning">
- Esta correção garante apenas a normalização do peso.
- Não otimiza automaticamente todos os parâmetros de formulação,
- nem garante PAC, POD ou textura à temperatura escolhida.
- </div>
- ${auditHTML(issues)}${metricCards(issues)}${recipeTable(proposed)}
- <div class="actions"><button class="primary" onclick="applyCorrection()">Aplicar proposta</button></div>`;
- window.proposedRecipe=proposed;
-}
-function applyCorrection(){
- if(!window.proposedRecipe)return;
- current=clone(window.proposedRecipe);
- renderLines();analyze();
-}
-function saveRecipe(){
- if(!current.length)return alert("Receita vazia.");
- const name=$("recipeName").value.trim()||"Receita sem nome";
- const id=uid();
- recipes.push({id,name,items:clone(current),temperature:num($("targetTemp").value)});
- persist();renderSaved();
- alert("Receita guardada neste navegador.");
-}
-function renderSaved(){
- $("savedList").innerHTML=recipes.map((r,i)=>`
- <div class="product">
- <b>${escapeHTML(r.name)}</b><br>
- <small>${fmt(rowsTotal(r.items||[]),0)} g</small>
- <div class="actions">
- <button onclick="loadRecipe(${i})">Abrir</button>
- <button class="danger" onclick="deleteRecipe(${i})">Apagar</button>
- </div></div>`).join("")||"<p>Sem receitas guardadas.</p>";
-}
-function loadRecipe(i){
- const r=recipes[i];if(!r)return;
- current=clone(r.items).filter(x=>x.id&&Number.isFinite(Number(x.g)));
- $("recipeName").value=r.name;
- $("targetKg").value=Math.min(6,Math.max(1,rowsTotal(current)/1000));
- $("targetTemp").value=r.temperature??-20;
- renderLines();showTab("analyze");analyze();
-}
-function deleteRecipe(i){
- if(!confirm("Apagar esta receita?"))return;
- recipes.splice(i,1);persist();renderSaved();
-}
-function auditAll(){
- let problems=0,incomplete=0,ok=0;
- for(const r of recipes){
-  const x=calculate(r.items||[]);
-  if(!x||x.issues.length)problems++;
-  else if(x.warnings.length)incomplete++;
-  else ok++;
- }
- $("auditAllResult").innerHTML=`
- <div class="notice warning">
- <b>Auditoria:</b> ${problems} com erros detetados,
- ${incomplete} com dados insuficientes,
- ${ok} sem alertas matemáticos.
- Nenhuma receita é certificada como perfeita.
- </div>`;
-}
-function unitCost(p){
+function product(id){return products.find(p=>p.id===id)}
+function totalWeight(){return lines.reduce((s,r)=>s+Number(r.g||0),0)}
+function priceKg(p){
  if(!p)return null;
- if(p.price!==undefined&&p.price!==null)return num(p.price);
- const price=num(p.packPrice),size=num(p.packSize);
- if(price===null||size===null||size<=0)return null;
- const unit=p.packUnit||"kg";
- let kg=unit==="kg"?size:unit==="g"?size/1000:null;
- if(unit==="L"||unit==="ml"){
-  const density=num(p.density);
-  if(density===null||density<=0)return null;
-  kg=(unit==="L"?size:size/1000)*density;
+ const price=Number(p.price),size=Number(p.size);
+ if(p.price===null||p.size===null||price<0||size<=0)return null;
+ let kg=size;
+ if(p.unit==="g")kg=size/1000;
+ if(p.unit==="L"||p.unit==="ml"){
+  if(!(Number(p.density)>0))return null;
+  kg=(p.unit==="L"?size:size/1000)*Number(p.density);
  }
  return kg>0?price/kg:null;
 }
-const pFields=["Name","Category","Fat","Protein","Carb","Sugar",
-"Water","Pac","Pod","Max","Price","Size","Unit","Density","Allergens"];
+function refreshChoices(){
+ const options=products.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("");
+ $("ingredientSelect").innerHTML=options;
+}
+function hideProductForm(){$("productForm").classList.add("hidden")}
 function newProduct(){
  $("productForm").classList.remove("hidden");
- $("productId").value="";
- for(const f of pFields){
-  const e=$("p"+f);if(e)e.value="";
- }
- $("pUnit").value="kg";$("pVerified").checked=false;
-}
-function editProduct(i){
- const p=products[i];if(!p)return;
- newProduct();$("productId").value=p.id;
- const map={
- Name:"name",Category:"category",Fat:"fat",Protein:"protein",
- Carb:"carb",Sugar:"sugar",Water:"water",Pac:"pac",Pod:"pod",
- Max:"max",Price:"packPrice",Size:"packSize",Unit:"packUnit",
- Density:"density",Allergens:"allergens"
- };
- for(const [f,key] of Object.entries(map)){
-  $("p"+f).value=p[key]??"";
- }
- if(p.price!==undefined&&p.packPrice===undefined){
-  $("pPrice").value=p.price;
-  $("pSize").value=1;
-  $("pUnit").value="kg";
- }
- $("pVerified").checked=!!p.verified;
+ $("pid").value="";
+ for(const id of ["pname","pfat","psat","pprotein","pcarb","psugar","pwater","pkj","psalt","ppac","ppod","pmax","pprice","psize","pdensity","pallergens","pnotes"])$(id).value="";
+ $("pcategory").value="Outro";
+ $("punit").value="kg";
+ $("pverified").checked=false;
  $("productForm").scrollIntoView({behavior:"smooth"});
 }
-function saveProduct(){
- const id=$("productId").value||uid();
- const name=$("pName").value.trim();
- if(!name)return alert("Introduz o nome do produto.");
- const fields={
-  id,name,category:$("pCategory").value,
-  fat:num($("pFat").value),protein:num($("pProtein").value),
-  carb:num($("pCarb").value),sugar:num($("pSugar").value),
-  water:num($("pWater").value),pac:num($("pPac").value),
-  pod:num($("pPod").value),max:num($("pMax").value),
-  packPrice:num($("pPrice").value),packSize:num($("pSize").value),
-  packUnit:$("pUnit").value,density:num($("pDensity").value),
-  allergens:$("pAllergens").value,verified:$("pVerified").checked
+function editProduct(id){
+ const p=product(id);
+ if(!p)return;
+ newProduct();
+ const mapping={
+ pname:"name",pcategory:"category",pfat:"fat",psat:"sat",
+ pprotein:"protein",pcarb:"carb",psugar:"sugar",
+ pwater:"water",pkj:"kj",psalt:"salt",
+ ppac:"pac",ppod:"pod",pmax:"max",
+ pprice:"price",psize:"size",punit:"unit",
+ pdensity:"density",pallergens:"allergens",pnotes:"notes"
  };
- const original=product(id);
- if(original)Object.assign(original,fields);
- else products.push(fields);
- persist();refreshSelects();renderProducts();renderLines();
- $("productForm").classList.add("hidden");
+ $("pid").value=p.id;
+ for(const [id,key] of Object.entries(mapping))$(id).value=p[key]??"";
+ $("pverified").checked=!!p.verified;
+ previewPrice();
+}
+function saveProduct(){
+ const name=$("pname").value.trim();
+ if(!name)return alert("Introduz o nome do produto.");
+ const id=$("pid").value||uid();
+ const p={
+  id,name,category:$("pcategory").value,
+  fat:val("pfat"),sat:val("psat"),
+  protein:val("pprotein"),carb:val("pcarb"),
+  sugar:val("psugar"),water:val("pwater"),
+  kj:val("pkj"),salt:val("psalt"),
+  pac:val("ppac"),pod:val("ppod"),max:val("pmax"),
+  price:val("pprice"),size:val("psize"),
+  unit:$("punit").value,density:val("pdensity"),
+  allergens:$("pallergens").value,
+  notes:$("pnotes").value,
+  verified:$("pverified").checked
+ };
+ const checks=["fat","sat","protein","carb","sugar","water"];
+ if(checks.some(k=>p[k]!==null&&(p[k]<0||p[k]>100)))
+  return alert("As percentagens devem estar entre 0 e 100.");
+ if(p.sugar!==null&&p.carb!==null&&p.sugar>p.carb)
+  return alert("Açúcares não podem exceder os hidratos.");
+ if(p.fat!==null&&p.protein!==null&&p.carb!==null&&p.fat+p.protein+p.carb>101)
+  return alert("Composição nutricional incoerente (soma dos macros superior a 100%).");
+ if(p.size!==null&&p.size<=0)return alert("Quantidade da embalagem inválida.");
+ if(p.price!==null&&p.price<0)return alert("Preço inválido.");
+ if(p.max!==null&&p.max<=0)return alert("Dosagem máxima inválida.");
+ const old=product(id);
+ if(old)Object.assign(old,p);
+ else products.push(p);
+ persist();refreshChoices();renderProducts();renderRows();hideProductForm();
+ alert("Produto guardado.");
+}
+function deleteProduct(id){
+ if(lines.some(r=>r.id===id)||recipes.some(r=>(r.lines||[]).some(x=>x.id===id)))
+  return alert("Este produto está a ser usado numa receita. Remove-o primeiro.");
+ if(!confirm("Eliminar este produto?"))return;
+ products=products.filter(p=>p.id!==id);
+ persist();refreshChoices();renderProducts();
 }
 function renderProducts(){
- const q=$("productSearch").value.toLowerCase();
- $("productList").innerHTML=products.map((p,i)=>({p,i}))
- .filter(x=>x.p.name.toLowerCase().includes(q))
- .map(({p,i})=>`
- <div class="product">
- <b>${escapeHTML(p.name)}</b><br>
- <small>${escapeHTML(p.category||"Outro")} · €/kg:
- ${money(unitCost(p))} · ${p.verified?"Ficha confirmada":"Não validado"}</small>
- <button onclick="editProduct(${i})">Editar</button>
- </div>`).join("");
+ const q=$("searchProduct").value.toLowerCase();
+ $("productList").innerHTML=products.filter(p=>p.name.toLowerCase().includes(q)).map(p=>`
+ <div class="item">
+ <b>${esc(p.name)}</b><br>
+ <small>${esc(p.category)} • ${euro(priceKg(p))}/kg • ${p.verified?"Dados confirmados":"Dados não verificados"}</small>
+ <div class="actions">
+ <button onclick="editProduct('${p.id}')">Editar</button>
+ <button class="danger" onclick="deleteProduct('${p.id}')">Eliminar</button>
+ </div></div>`).join("")||'<div class="notice">Biblioteca vazia. Adiciona o primeiro produto.</div>';
 }
-function importBackup(event){
- const file=event.target.files?.[0];if(!file)return;
- const reader=new FileReader();
- reader.onload=()=>{
-  try{
-   const data=JSON.parse(reader.result);
-   let addedP=0,addedR=0;
-   if(Array.isArray(data.products)){
-    for(const raw of data.products){
-     if(!raw.id||!raw.name)continue;
-     const n=raw.nutrition||{};
-     const old=product(raw.id);
-     const p={
-      id:raw.id,name:raw.name,category:convertCategory(raw.category),
-      fat:num(n.fat),protein:num(n.protein),
-      carb:num(n.carb),sugar:num(n.sugar),
-      water:null,pac:null,pod:null,max:null,
-      allergens:raw.allergens||"",verified:false
-     };
-     if(old){
-      Object.assign(old,{...p,
-       packPrice:old.packPrice,packSize:old.packSize,
-       packUnit:old.packUnit,density:old.density,
-       price:old.price});
-     }else {products.push(p);addedP++;}
-    }
-   }
-   if(Array.isArray(data.recipes)){
-    for(const raw of data.recipes){
-     const converted=convertRecipe(raw);
-     if(!converted)continue;
-     if(recipes.some(x=>x.id===converted.id))continue;
-     recipes.push(converted);addedR++;
-    }
-   }
-   persist();refreshSelects();renderProducts();renderSaved();
-   alert(`Importação: ${addedP} produtos e ${addedR} receitas novas. Confirma os dados técnicos.`);
-  }catch(e){alert("Erro na importação: "+e.message);}
-  event.target.value="";
+function previewPrice(){
+ const p={
+ price:val("pprice"),size:val("psize"),
+ unit:$("punit").value,density:val("pdensity")
  };
- reader.readAsText(file);
+ $("pricePreview").innerHTML="Custo calculado: <b>"+euro(priceKg(p))+"/kg</b>";
 }
-function convertCategory(c){
- const s=String(c||"").toLowerCase();
- if(s.includes("frucht"))return "Fruta";
- if(s.includes("paste"))return "Pasta";
- if(s.includes("milch"))return "Leite";
- if(s.includes("süße")||s.includes("pulver"))return "Outro";
- return "Outro";
+["pprice","psize","punit","pdensity"].forEach(id=>$(id).addEventListener("input",previewPrice));
+
+function addIngredient(){
+ const id=$("ingredientSelect").value;
+ if(!product(id))return alert("Adiciona primeiro um produto.");
+ const existing=lines.find(r=>r.id===id);
+ if(existing)existing.g+=100;
+ else lines.push({id,g:100});
+ proposal=null;
+ persist();renderRows();
 }
-function convertRecipe(r){
- if(!r||!r.name||!Array.isArray(r.items))return null;
- const items=r.items.map(x=>({
-  id:x.productId||x.product_id||x.id||"",
-  g:num(x.grams??x.amount??x.quantity??x.g)??0
- })).filter(x=>x.id&&product(x.id));
- if(!items.length)return null;
- return {id:r.id||uid(),name:r.name,items,temperature:-20};
+
+// FIX: Não re-renderiza a tabela inteira para não perder o foco do campo ao digitar
+function changeAmount(i,v){
+ let n=Number(v);
+ if(!Number.isFinite(n)||n<0) n=0; 
+ if(lines[i].g===n) return;
+ lines[i].g=n;
+ proposal=null;
+ persist(); // Já chama updateCount internamente
 }
-function exportData(type){
- const data=type==="products"?products:recipes;
+function removeIngredient(i){
+ lines.splice(i,1);
+ proposal=null;
+ persist();renderRows();
+}
+function renderRows(){
+ $("recipeRows").innerHTML=lines.map((r,i)=>`
+ <div class="itemrow">
+ <input value="${esc(product(r.id)?.name||"Produto indisponível")}" disabled>
+ <input type="number" min="0" step="1" value="${r.g}" onchange="changeAmount(${i},this.value)">
+ <button class="danger" onclick="removeIngredient(${i})">×</button>
+ </div>`).join("")||'<div class="notice">Ainda não adicionaste ingredientes.</div>';
+ updateCount();
+}
+
+// FIX CRÍTICO: Evita que o arredondamento coloque pesos negativos no primeiro ingrediente
+function scaled(original,goal){
+ const total=original.reduce((s,r)=>s+r.g,0);
+ if(total<=0)return null;
+ const out=original.map(r=>({...r,g:Math.round(r.g*goal/total)}));
+ let d=goal-out.reduce((s,r)=>s+r.g,0);
+ if(out.length>0){
+   // Encontra o ingrediente com maior peso para absorver a diferença de arredondamento
+   let maxIdx = 0;
+   for(let i=1; i<out.length; i++){
+     if(out[i].g > out[maxIdx].g) maxIdx = i;
+   }
+   out[maxIdx].g += d;
+   if(out[maxIdx].g < 0) out[maxIdx].g = 0;
+ }
+ return out;
+}
+function scaleRecipe(){
+ const kg=val("rkg");
+ if(kg===null||kg<1||kg>6)return alert("Escolhe entre 1 e 6 kg.");
+ const out=scaled(lines,Math.round(kg*1000));
+ if(!out)return alert("Adiciona quantidades à receita.");
+ lines=out;proposal=null;
+ persist();renderRows();checkRecipe();
+}
+function analyze(data){
+ const weight=data.reduce((s,r)=>s+Number(r.g||0),0);
+ if(weight<=0)return null;
+ const fields=["fat","protein","carb","sugar","water","kj","salt","pac","pod"];
+ const sums=Object.fromEntries(fields.map(k=>[k,0]));
+ const complete=Object.fromEntries(fields.map(k=>[k,true]));
+ const errors=[],warnings=[];
+ let cost=0,costComplete=true;
+ for(const r of data){
+  const p=product(r.id);
+  if(!p){errors.push("Produto não encontrado.");continue;}
+  if(!Number.isFinite(r.g)||r.g<0){errors.push("Quantidade inválida.");continue;}
+  for(const k of fields){
+   if(p[k]===null||p[k]===undefined)complete[k]=false;
+   else sums[k]+=r.g/weight*Number(p[k]);
+  }
+  if(p.max!==null&&p.max!==undefined&&r.g/weight*1000>p.max+0.01)
+   errors.push(p.name+": ultrapassa a dosagem máxima.");
+  if(p.sugar!==null&&p.carb!==null&&p.sugar>p.carb)
+   errors.push(p.name+": açúcares acima dos hidratos.");
+  if(!p.verified)warnings.push(p.name+": dados não verificados.");
+  const unit=priceKg(p);
+  if(unit===null)costComplete=false;
+  else cost+=r.g/1000*unit;
+ }
+ for(const k of fields)if(!complete[k])sums[k]=null;
+ const solids=sums.water===null?null:100-sums.water;
+ return {weight,...sums,solids,cost:costComplete?cost:null,errors,warnings};
+}
+function resultCards(a){
+ if(!a)return '<div class="notice warn">Receita vazia.</div>';
+ const data=[
+ ["Peso",fmt(a.weight)+" g"],
+ ["Gordura",a.fat===null?"Incompleto":fmt(a.fat)+"%"],
+ ["Proteínas",a.protein===null?"Incompleto":fmt(a.protein)+"%"],
+ ["Açúcares",a.sugar===null?"Incompleto":fmt(a.sugar)+"%"],
+ ["Sólidos",a.solids===null?"Incompleto":fmt(a.solids)+"%"],
+ ["PAC",a.pac===null?"Incompleto":fmt(a.pac)],
+ ["POD",a.pod===null?"Incompleto":fmt(a.pod)],
+ ["Ingredientes",euro(a.cost)]
+ ];
+ return `<div class="cards">${data.map(x=>`
+ <div class="card"><small>${x[0]}</small><strong>${x[1]}</strong></div>`).join("")}</div>
+ <div class="notice ${a.errors.length?"bad":"warn"}">
+ ${a.errors.length?"<b>Erros:</b> "+a.errors.map(esc).join("; "):"Sem erros evidentes de dosagem."}
+ ${a.warnings.length?"<p><b>Avisos:</b> "+a.warnings.map(esc).join("; ")+"</p>":""}
+ <small>Os resultados dependem dos dados dos produtos. Não certificam cremosidade nem segurança alimentar.</small>
+ </div>`;
+}
+function checkRecipe(){
+ const a=analyze(lines);
+ $("recipeResult").innerHTML=resultCards(a);
+ $("analysisResult").innerHTML=resultCards(a);
+ return a;
+}
+function optimizeRecipe(){
+ const kg=val("rkg");
+ if(kg===null||kg<1||kg>6)return alert("Peso inválido.");
+ if(!lines.length)return alert("Cria primeiro uma receita.");
+ const target=Math.round(kg*1000);
+ const original=scaled(lines,target);
+ if(!original)return;
+ const goals=[
+ ["sugar",val("goalSugar")],
+ ["solids",val("goalSolids")],
+ ["fat",val("goalFat")],
+ ["pac",val("goalPac")],
+ ["pod",val("goalPod")]
+ ].filter(x=>x[1]!==null);
+ if(!goals.length)return alert("Define pelo menos um objetivo.");
+ const baseline=analyze(original);
+ const unavailable=goals.filter(([k])=>baseline?.[k]===null).map(x=>x[0]);
+ if(unavailable.length)
+  return alert("Faltam dados técnicos para calcular: "+unavailable.join(", "));
+ if(baseline.errors.length)
+  return alert("Corrige primeiro os erros de dosagem.");
+ const fixed=$("protectFlavor").checked;
+ const adjustable=original.map((r,i)=>{
+  const p=product(r.id);
+  return fixed&&["Fruta","Fruto seco","Pasta"].includes(p?.category)?-1:i;
+ }).filter(i=>i>=0);
+ if(adjustable.length<2)
+  return alert("Precisas de pelo menos dois ingredientes ajustáveis.");
+ const goalError=arr=>{
+  const a=analyze(arr);
+  if(!a||a.errors.length)return Infinity;
+  let e=0;
+  for(const [k,v] of goals){
+   if(a[k]===null)return Infinity;
+   const scale=Math.max(2,Math.abs(v));
+   e+=Math.pow((a[k]-v)/scale,2);
+  }
+  return e;
+ };
+ 
+ // FIX: Proteção caso o produto não tenha max definido
+ const maxFor=(r)=>{
+  const p=product(r.id);
+  if(!p || p.max===null || p.max===undefined) return target;
+  return Math.floor(target*p.max/1000);
+ };
+ 
+ let best=copy(original);
+ let score=goalError(best);
+ for(let step of [100,40,10,1]){
+  let improved=true,passes=0;
+  while(improved&&passes++<120){
+   improved=false;
+   let candidate=null,newScore=score;
+   for(const i of adjustable){
+    for(const j of adjustable){
+     if(i===j||best[j].g<step)continue;
+     if(best[i].g+step>maxFor(best[i]))continue;
+     const test=copy(best);
+     test[i].g+=step;test[j].g-=step;
+     const s=goalError(test);
+     if(s<newScore-1e-10){
+      newScore=s;candidate=test;
+     }
+    }
+   }
+   if(candidate){
+    best=candidate;score=newScore;improved=true;
+   }
+  }
+ }
+ proposal=best;
+ const a=analyze(best);
+ const rows=goals.map(([k,v])=>
+ `<tr><td>${k.toUpperCase()}</td><td>${fmt(v)}</td>
+ <td>${a[k]===null?"Incompleto":fmt(a[k])}</td></tr>`).join("");
+ const ingredientRows=best.map((r,i)=>`
+ <tr><td>${esc(product(r.id)?.name)}</td>
+ <td>${original[i].g} g</td><td>${r.g} g</td></tr>`).join("");
+ $("analysisResult").innerHTML=`
+ <h3>Proposta de correção</h3>
+ <div class="notice warn">
+ O otimizador procura aproximar vários objetivos com os ingredientes existentes.
+ Não garante alcançar todos os valores nem prever a textura.
+ </div>
+ <div class="tablewrap"><table>
+ <tr><th>Indicador</th><th>Objetivo</th><th>Resultado</th></tr>
+ ${rows}</table></div>
+ <h3>Quantidades propostas</h3>
+ <div class="tablewrap"><table>
+ <tr><th>Produto</th><th>Antes</th><th>Depois</th></tr>
+ ${ingredientRows}</table></div>
+ ${resultCards(a)}`;
+}
+function applyProposal(){
+ if(!proposal)return alert("Ainda não existe uma proposta.");
+ lines=copy(proposal);proposal=null;
+ persist();renderRows();checkRecipe();
+ tab("recipe");
+}
+function saveRecipe(){
+ if(!lines.length)return alert("Receita vazia.");
+ const name=$("rname").value.trim()||"Receita";
+ const temp=val("rtemp");
+ if(temp===null||temp< -24||temp> -12)return alert("Temperatura inválida.");
+ recipes.push({
+ id:uid(),name,type:$("rtype").value,
+ temp,lines:copy(lines)
+ });
+ persist();renderSaved();
+ alert("Receita guardada.");
+}
+function renderSaved(){
+ $("savedList").innerHTML=recipes.map((r,i)=>`
+ <div class="item">
+ <b>${esc(r.name)}</b><br>
+ <small>${fmt(r.lines.reduce((s,x)=>s+x.g,0))} g • ${r.temp} °C</small>
+ <div class="actions">
+ <button onclick="loadRecipe(${i})">Abrir receita</button>
+ <button class="danger" onclick="deleteRecipe(${i})">Eliminar</button>
+ </div></div>`).join("")||'<div class="notice">Ainda não existem receitas guardadas.</div>';
+}
+function loadRecipe(i){
+ const r=recipes[i];if(!r)return;
+ lines=copy(r.lines);
+ $("rname").value=r.name;
+ $("rtype").value=r.type;
+ $("rtemp").value=r.temp;
+ $("rkg").value=Math.min(6,Math.max(1,totalWeight()/1000));
+ persist();renderRows();tab("recipe");checkRecipe();
+}
+function deleteRecipe(i){
+ if(!confirm("Eliminar receita?"))return;
+ recipes.splice(i,1);persist();renderSaved();
+}
+function exportBackup(){
+ const data={
+ version:1,format:"sanremo-gelato-lab",
+ products,recipes,lines
+ };
  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
  const url=URL.createObjectURL(blob);
  const a=document.createElement("a");
- a.href=url;a.download="sanremo_"+type+"_privado.json";a.click();
- setTimeout(()=>URL.revokeObjectURL(url),1000);
+ a.href=url;a.download="sanremo_backup_privado.json";
+ a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
-function recipeCosts(lines){
- let total=0,missing=[];
- for(const r of lines){
-  const p=product(r.id),c=unitCost(p);
-  if(c===null)missing.push(p?.name||r.id);
-  else total+=r.g*c/1000;
- }
- return {total,missing,kg:rowsTotal(lines)/1000};
+function importBackup(ev){
+ const file=ev.target.files?.[0];if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const d=JSON.parse(reader.result);
+   if(d.format!=="sanremo-gelato-lab"||!Array.isArray(d.products)||!Array.isArray(d.recipes))
+    throw Error("Formato de backup incompatível.");
+   if(!confirm("Substituir produtos e receitas pelos do backup?"))return;
+   products=d.products;recipes=d.recipes;
+   lines=Array.isArray(d.lines)?d.lines:[];
+   persist();refreshChoices();renderRows();renderProducts();renderSaved();
+   alert("Backup importado.");
+  }catch(e){alert("Erro: "+e.message);}
+  ev.target.value="";
+ };
+ reader.readAsText(file);
 }
-function calculateCosts(){
- const lines=current.length?current:generated;
- if(!lines.length){
-  $("costResult").innerHTML="Primeiro cria ou abre uma receita.";return;
- }
- const x=recipeCosts(lines);
- const labor=num($("labor").value),energy=num($("energy").value),
- other=num($("other").value),loss=num($("loss").value);
- const complete=x.missing.length===0&&labor!==null&&energy!==null&&other!==null&&loss!==null&&loss>=0&&loss<100;
- const total=complete?x.total+labor+energy+other:null;
- const saleKg=complete?x.kg*(1-loss/100):null;
- const perKg=complete&&saleKg>0?total/saleKg:null;
- const density=num($("density").value),overrun=num($("overrun").value);
- const liters=complete&&density>0&&overrun>=0?saleKg/density*(1+overrun/100):null;
- $("costResult").innerHTML=`
- <div class="cards">
- <div class="card"><small>Ingredientes</small><strong>${x.missing.length?"Incompleto":money(x.total)}</strong></div>
- <div class="card"><small>Produção total</small><strong>${money(total)}</strong></div>
- <div class="card"><small>Custo por kg vendável</small><strong>${money(perKg)}</strong></div>
- <div class="card"><small>Litros estimados</small><strong>${liters===null?"Incompleto":fmt(liters)+" L"}</strong></div>
- </div>
- ${x.missing.length?`<div class="notice warning">Faltam preços: ${escapeHTML(x.missing.join(", "))}</div>`:""}
- <p class="notice">Litros calculados por densidade e overrun estimados; confirma o rendimento real.</p>`;
- lastCost={perKg,complete};
- return lastCost;
-}
+const saleTypes=[
+ ["ball","Bola de gelado",null],
+ ["kg","Venda por kg",1000],
+ ["170","Supermercado 170 g",170],
+ ["750","Supermercado 750 g",750]
+];
 function buildSales(){
- $("saleInputs").innerHTML=sales.map(([id,name,w])=>`
+ $("salesFields").innerHTML=saleTypes.map(([id,name])=>`
  <h3>${name}</h3>
- <div class="grid">
- ${id==="Ball"?`<div><label>Gramas por bola</label><input id="w${id}" type="number" value="${w}"></div>`:""}
- <div><label>Embalagem / tampa / etiqueta (€)</label><input id="pack${id}" type="number" step="any"></div>
- <div><label>Outros custos por unidade (€)</label><input id="extra${id}" type="number" step="any"></div>
- <div><label>Preço de venda (€)</label><input id="sell${id}" type="number" step="any"></div>
+ <div class="grid3">
+ <div><label>Preço de venda (€)</label><input id="sell_${id}" type="number" step="any"></div>
+ <div><label>Embalagem e etiqueta (€)</label><input id="pack_${id}" type="number" step="any"></div>
+ <div><label>Transporte/outros (€)</label><input id="extra_${id}" type="number" step="any"></div>
  </div>`).join("");
 }
-function calculateProfit(){
- const c=calculateCosts();
- const vat=num($("vat").value),mode=$("priceType").value;
- let html=`<div class="scroll"><table>
- <tr><th>Formato</th><th>Custo/un.</th><th>Venda sem IVA</th><th>Margem/un.</th></tr>`;
- for(const [id,name,weight] of sales){
-  const w=id==="Ball"?num($("wBall").value):weight;
-  const pack=num($("pack"+id).value);
-  const extra=num($("extra"+id).value);
-  const sell=num($("sell"+id).value);
-  const cost=c?.perKg!==null&&w!==null&&pack!==null&&extra!==null?c.perKg*w/1000+pack+extra:null;
+function calculateCosts(){
+ const a=analyze(lines);
+ if(!a){
+  $("costResults").innerHTML='<div class="notice warn">Cria ou abre uma receita primeiro.</div>';
+  return;
+ }
+ const labor=val("labor"),energy=val("energy"),other=val("otherCost"),loss=val("loss");
+ const ready=a.cost!==null&&labor!==null&&energy!==null&&other!==null&&loss!==null&&loss>=0&&loss<100;
+ const total=ready?a.cost+labor+energy+other:null;
+ const saleKg=ready?a.weight/1000*(1-loss/100):null;
+ const perKg=ready&&saleKg>0?total/saleKg:null;
+ const density=val("mixDensity"),overrun=val("overrun");
+ const liters=ready&&density>0&&overrun!==null&&overrun>=0?
+ saleKg/density*(1+overrun/100):null;
+ const vat=val("vat"),mode=$("priceMode").value;
+ let html=`<div class="cards">
+ <div class="card"><small>Ingredientes</small><strong>${euro(a.cost)}</strong></div>
+ <div class="card"><small>Total produção</small><strong>${euro(total)}</strong></div>
+ <div class="card"><small>Custo/kg</small><strong>${euro(perKg)}</strong></div>
+ <div class="card"><small>Litros estimados</small><strong>${liters===null?"Incompleto":fmt(liters)+" L"}</strong></div>
+ </div><div class="tablewrap"><table>
+ <tr><th>Formato</th><th>Custo</th><th>Venda s/IVA</th><th>Margem</th></tr>`;
+ for(const [id,name,fixed] of saleTypes){
+  const weight=id==="ball"?val("ballWeight"):fixed;
+  const pack=val("pack_"+id),extra=val("extra_"+id),sell=val("sell_"+id);
+  const cost=perKg!==null&&weight>0&&pack!==null&&extra!==null?
+   perKg*weight/1000+pack+extra:null;
   const net=sell!==null&&vat!==null&&vat>=0?
    (mode==="gross"?sell/(1+vat/100):sell):null;
   const margin=cost!==null&&net!==null?net-cost:null;
-  html+=`<tr><td>${name}</td><td>${money(cost)}</td>
-  <td>${money(net)}</td><td>${money(margin)}</td></tr>`;
+  html+=`<tr><td>${name}</td><td>${euro(cost)}</td><td>${euro(net)}</td><td>${euro(margin)}</td></tr>`;
  }
- html+="</table></div>";
- $("profitResult").innerHTML=html+
- '<p class="notice warning">Margem calculada sobre os custos introduzidos. Não equivale automaticamente a lucro líquido contabilístico.</p>';
+ html+=`</table></div>
+ <div class="notice warn">
+ Valores incompletos não devem ser interpretados como lucro.
+ A margem calculada não equivale ao lucro líquido contabilístico.
+ O rendimento em litros depende da densidade e do overrun reais.
+ </div>`;
+ $("costResults").innerHTML=html;
 }
-refreshSelects();
-buildSales();
+
+refreshChoices();
+renderRows();
 renderProducts();
-generate();
+renderSaved();
+buildSales();
+updateCount();
 </script>
 </body>
 </html>
